@@ -195,11 +195,11 @@ private void showMessage(String message, String title, int messageType)
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-       jPasswordField1ActionPerformed(evt);
+        jButton1ActionPerformed(evt);
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      String username = jTextField1.getText();
+        String username = jTextField1.getText();
         String password = new String(jPasswordField1.getPassword());
 
         if (username.isEmpty() || password.isEmpty()) 
@@ -211,15 +211,33 @@ private void showMessage(String message, String title, int messageType)
 
         if (!validateUsername(username)) 
         {
+           
             return;
         }
 
-        if (!validatePassword(password)) {
+        if (!validatePassword(password)) 
+        {
             return;
         }
 
-        showMessage("Login bem-sucedido!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        String fixedUsername = "asobrinh";
+        String fixedPassword = "Beijodela@120702";
 
+        if (username.equals(fixedUsername) && password.equals(fixedPassword)) {
+            // Login bem-sucedido com credenciais fixas
+            showMessage("Login bem-sucedido!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            TelaHome telaHome = new TelaHome();
+            telaHome.setVisible(true);
+
+            this.dispose();
+
+        } else 
+        {
+            // Credenciais inválidas
+            showMessage("Usuário ou Senha incorretos. Tente novamente.",
+                        "Erro de Login", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

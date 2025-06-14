@@ -13,7 +13,7 @@ public class TelaHome extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaHome.class.getName());
 
     /**
-     * Creates new form TelaHome
+     * Creates new form TelaAdmin
      */
     public TelaHome() {
         initComponents();
@@ -28,41 +28,542 @@ public class TelaHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jSplitPane1 = new javax.swing.JSplitPane();
-        ConteinerGeral = new javax.swing.JPanel();
-
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
+        ConteinerPart1 = new javax.swing.JPanel();
+        ConteinerTitulo = new javax.swing.JPanel();
+        Titulo = new javax.swing.JLabel();
+        ConteinerBaixo = new javax.swing.JPanel();
+        Caixinha1Hosped = new javax.swing.JPanel();
+        painelConteudoHospedes = new javax.swing.JPanel();
+        iconHospedagem = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        Caixinha4Quarto = new javax.swing.JPanel();
+        painelConteudoQuartos = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        Caixinha2Reserva = new javax.swing.JPanel();
+        painelConteudoReservas = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        Caixinha3Funcionario = new javax.swing.JPanel();
+        painelConteudoFuncionarios = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        painelReservasRecentes = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        painelMenuLateralPrincipal = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        paMenuItemDashboard = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        painelMenuItemHospedes = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        painelMenuItemQuartos = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        painelMenuItemReservas = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        Funcionario = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        painelMenuItemDashboard = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(200, 21474));
+        setPreferredSize(new java.awt.Dimension(1854, 1024));
+        setResizable(false);
+        setSize(new java.awt.Dimension(720, 1280));
 
         jSplitPane1.setDividerLocation(200);
 
-        javax.swing.GroupLayout ConteinerGeralLayout = new javax.swing.GroupLayout(ConteinerGeral);
-        ConteinerGeral.setLayout(ConteinerGeralLayout);
-        ConteinerGeralLayout.setHorizontalGroup(
-            ConteinerGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        ConteinerGeralLayout.setVerticalGroup(
-            ConteinerGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
-        );
+        ConteinerPart1.setBackground(new java.awt.Color(255, 255, 255));
+        ConteinerPart1.setForeground(new java.awt.Color(255, 255, 255));
+        ConteinerPart1.setLayout(new javax.swing.BoxLayout(ConteinerPart1, javax.swing.BoxLayout.Y_AXIS));
 
-        jSplitPane1.setLeftComponent(ConteinerGeral);
+        ConteinerTitulo.setBackground(new java.awt.Color(255, 255, 255));
+        ConteinerTitulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ConteinerTitulo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 0));
+
+        Titulo.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Titulo.setText("Sistema de Gestão Hoteleira");
+        ConteinerTitulo.add(Titulo);
+
+        ConteinerPart1.add(ConteinerTitulo);
+
+        ConteinerBaixo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ConteinerBaixo.setLayout(new java.awt.GridLayout(1, 0));
+
+        Caixinha1Hosped.setBackground(new java.awt.Color(0, 0, 153));
+        Caixinha1Hosped.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Caixinha1Hosped.setForeground(new java.awt.Color(255, 255, 255));
+        Caixinha1Hosped.setToolTipText("");
+        Caixinha1Hosped.setAlignmentX(19.0F);
+        Caixinha1Hosped.setAlignmentY(10.0F);
+        Caixinha1Hosped.setLayout(new java.awt.BorderLayout());
+
+        painelConteudoHospedes.setBackground(new java.awt.Color(51, 51, 255));
+        painelConteudoHospedes.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 40, 30, 40));
+        painelConteudoHospedes.setOpaque(false);
+        painelConteudoHospedes.setLayout(new java.awt.BorderLayout());
+
+        iconHospedagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconHospedagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Hospedagem.png"))); // NOI18N
+        iconHospedagem.setAlignmentX(0.5F);
+        painelConteudoHospedes.add(iconHospedagem, java.awt.BorderLayout.CENTER);
+
+        jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Hóspedes");
+        jLabel3.setAlignmentX(0.5F);
+        painelConteudoHospedes.add(jLabel3, java.awt.BorderLayout.PAGE_START);
+
+        jLabel14.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("----");
+        jLabel14.setAlignmentX(0.5F);
+        painelConteudoHospedes.add(jLabel14, java.awt.BorderLayout.PAGE_END);
+
+        Caixinha1Hosped.add(painelConteudoHospedes, java.awt.BorderLayout.CENTER);
+
+        ConteinerBaixo.add(Caixinha1Hosped);
+
+        Caixinha4Quarto.setBackground(new java.awt.Color(0, 0, 153));
+        Caixinha4Quarto.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Caixinha4Quarto.setAlignmentX(19.5F);
+        Caixinha4Quarto.setAlignmentY(10.5F);
+        Caixinha4Quarto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Caixinha4Quarto.setLayout(new java.awt.BorderLayout());
+
+        painelConteudoQuartos.setBackground(new java.awt.Color(204, 204, 255));
+        painelConteudoQuartos.setOpaque(false);
+        painelConteudoQuartos.setLayout(new java.awt.BorderLayout());
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/quarto.png"))); // NOI18N
+        jLabel4.setAlignmentX(0.5F);
+        painelConteudoQuartos.add(jLabel4, java.awt.BorderLayout.CENTER);
+
+        jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Quartos");
+        jLabel7.setAlignmentX(0.5F);
+        painelConteudoQuartos.add(jLabel7, java.awt.BorderLayout.PAGE_START);
+
+        jLabel5.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("----");
+        jLabel5.setAlignmentX(0.5F);
+        painelConteudoQuartos.add(jLabel5, java.awt.BorderLayout.PAGE_END);
+
+        Caixinha4Quarto.add(painelConteudoQuartos, java.awt.BorderLayout.CENTER);
+
+        ConteinerBaixo.add(Caixinha4Quarto);
+
+        Caixinha2Reserva.setBackground(new java.awt.Color(0, 0, 153));
+        Caixinha2Reserva.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Caixinha2Reserva.setLayout(new java.awt.BorderLayout());
+
+        painelConteudoReservas.setBackground(new java.awt.Color(255, 51, 255));
+        painelConteudoReservas.setOpaque(false);
+        painelConteudoReservas.setLayout(new java.awt.BorderLayout());
+
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/reserva.png"))); // NOI18N
+        jLabel8.setAlignmentX(0.5F);
+        painelConteudoReservas.add(jLabel8, java.awt.BorderLayout.CENTER);
+
+        jLabel9.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Reservas");
+        jLabel9.setAlignmentX(0.5F);
+        painelConteudoReservas.add(jLabel9, java.awt.BorderLayout.PAGE_START);
+
+        jLabel10.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("-----------");
+        jLabel10.setAlignmentX(0.5F);
+        painelConteudoReservas.add(jLabel10, java.awt.BorderLayout.PAGE_END);
+
+        Caixinha2Reserva.add(painelConteudoReservas, java.awt.BorderLayout.CENTER);
+
+        ConteinerBaixo.add(Caixinha2Reserva);
+
+        Caixinha3Funcionario.setBackground(new java.awt.Color(0, 0, 153));
+        Caixinha3Funcionario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Caixinha3Funcionario.setLayout(new java.awt.BorderLayout());
+
+        painelConteudoFuncionarios.setBackground(new java.awt.Color(255, 102, 255));
+        painelConteudoFuncionarios.setOpaque(false);
+        painelConteudoFuncionarios.setLayout(new java.awt.BorderLayout());
+
+        jLabel11.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/pessoas.png"))); // NOI18N
+        jLabel11.setAlignmentX(0.5F);
+        painelConteudoFuncionarios.add(jLabel11, java.awt.BorderLayout.CENTER);
+
+        jLabel12.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Funcionarios");
+        jLabel12.setAlignmentX(0.5F);
+        painelConteudoFuncionarios.add(jLabel12, java.awt.BorderLayout.PAGE_START);
+
+        jLabel13.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("-----------");
+        jLabel13.setAlignmentX(0.5F);
+        painelConteudoFuncionarios.add(jLabel13, java.awt.BorderLayout.PAGE_END);
+
+        Caixinha3Funcionario.add(painelConteudoFuncionarios, java.awt.BorderLayout.CENTER);
+
+        ConteinerBaixo.add(Caixinha3Funcionario);
+
+        ConteinerPart1.add(ConteinerBaixo);
+
+        painelReservasRecentes.setBackground(new java.awt.Color(255, 255, 255));
+        painelReservasRecentes.setMaximumSize(new java.awt.Dimension(40000, 40000));
+        painelReservasRecentes.setLayout(new javax.swing.BoxLayout(painelReservasRecentes, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Reservas Recentes");
+        jLabel1.setAlignmentX(0.5F);
+        jLabel1.setMaximumSize(new java.awt.Dimension(950, 28));
+        painelReservasRecentes.add(jLabel1);
+
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(40000, 42767));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(16, 300));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Hóspedes", "Quartos", "Check-in", "Check-out"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        painelReservasRecentes.add(jScrollPane1);
+
+        ConteinerPart1.add(painelReservasRecentes);
+
+        jSplitPane1.setRightComponent(ConteinerPart1);
+
+        painelMenuLateralPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        painelMenuLateralPrincipal.setForeground(new java.awt.Color(255, 255, 255));
+        painelMenuLateralPrincipal.setLayout(new javax.swing.BoxLayout(painelMenuLateralPrincipal, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
+
+        paMenuItemDashboard.setBackground(new java.awt.Color(255, 255, 255));
+        paMenuItemDashboard.setForeground(new java.awt.Color(255, 255, 255));
+
+        jButton1.setBackground(new java.awt.Color(70, 70, 70));
+        jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/user.png"))); // NOI18N
+        jButton1.setText("Dashboard");
+        jButton1.setBorderPainted(false);
+        jButton1.setFocusPainted(false);
+        jButton1.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        paMenuItemDashboard.add(jButton1);
+
+        jPanel2.add(paMenuItemDashboard);
+
+        painelMenuItemHospedes.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton2.setBackground(new java.awt.Color(70, 70, 70));
+        jButton2.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Hospedagem.png"))); // NOI18N
+        jButton2.setText("Hospedes");
+        jButton2.setBorderPainted(false);
+        jButton2.setFocusPainted(false);
+        jButton2.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        painelMenuItemHospedes.add(jButton2);
+
+        jPanel2.add(painelMenuItemHospedes);
+
+        painelMenuItemQuartos.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton3.setBackground(new java.awt.Color(70, 70, 70));
+        jButton3.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/quarto.png"))); // NOI18N
+        jButton3.setText("Quartos");
+        jButton3.setBorderPainted(false);
+        jButton3.setFocusPainted(false);
+        jButton3.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        painelMenuItemQuartos.add(jButton3);
+
+        jPanel2.add(painelMenuItemQuartos);
+
+        painelMenuItemReservas.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton4.setBackground(new java.awt.Color(70, 70, 70));
+        jButton4.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/reserva.png"))); // NOI18N
+        jButton4.setText("Reservas");
+        jButton4.setBorderPainted(false);
+        jButton4.setFocusPainted(false);
+        jButton4.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        jButton4.setMaximumSize(new java.awt.Dimension(160, 54));
+        jButton4.setMinimumSize(new java.awt.Dimension(160, 54));
+        painelMenuItemReservas.add(jButton4);
+
+        jPanel2.add(painelMenuItemReservas);
+        jPanel2.add(jLabel6);
+
+        Funcionario.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton5.setBackground(new java.awt.Color(70, 70, 70));
+        jButton5.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/pessoas.png"))); // NOI18N
+        jButton5.setText("Funcionarios");
+        jButton5.setBorderPainted(false);
+        jButton5.setFocusPainted(false);
+        jButton5.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        Funcionario.add(jButton5);
+
+        jPanel2.add(Funcionario);
+
+        painelMenuLateralPrincipal.add(jPanel2);
+
+        jSplitPane1.setLeftComponent(painelMenuLateralPrincipal);
+
+        painelMenuItemDashboard.setBackground(new java.awt.Color(102, 102, 102));
+        painelMenuItemDashboard.setForeground(new java.awt.Color(51, 0, 51));
+        painelMenuItemDashboard.setLayout(new javax.swing.BoxLayout(painelMenuItemDashboard, javax.swing.BoxLayout.Y_AXIS));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelMenuItemDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(painelMenuItemDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 969, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -94,8 +595,48 @@ public class TelaHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel ConteinerGeral;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JPanel Caixinha1Hosped;
+    private javax.swing.JPanel Caixinha2Reserva;
+    private javax.swing.JPanel Caixinha3Funcionario;
+    private javax.swing.JPanel Caixinha4Quarto;
+    private javax.swing.JPanel ConteinerBaixo;
+    private javax.swing.JPanel ConteinerPart1;
+    private javax.swing.JPanel ConteinerTitulo;
+    private javax.swing.JPanel Funcionario;
+    private javax.swing.JLabel Titulo;
+    private javax.swing.JLabel iconHospedagem;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel paMenuItemDashboard;
+    private javax.swing.JPanel painelConteudoFuncionarios;
+    private javax.swing.JPanel painelConteudoHospedes;
+    private javax.swing.JPanel painelConteudoQuartos;
+    private javax.swing.JPanel painelConteudoReservas;
+    private javax.swing.JPanel painelMenuItemDashboard;
+    private javax.swing.JPanel painelMenuItemHospedes;
+    private javax.swing.JPanel painelMenuItemQuartos;
+    private javax.swing.JPanel painelMenuItemReservas;
+    private javax.swing.JPanel painelMenuLateralPrincipal;
+    private javax.swing.JPanel painelReservasRecentes;
     // End of variables declaration//GEN-END:variables
 }
