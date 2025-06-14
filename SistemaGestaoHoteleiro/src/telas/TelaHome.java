@@ -32,6 +32,7 @@ public class TelaHome extends javax.swing.JFrame {
         ConteinerPart1 = new javax.swing.JPanel();
         ConteinerTitulo = new javax.swing.JPanel();
         Titulo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         ConteinerBaixo = new javax.swing.JPanel();
         Caixinha1Hosped = new javax.swing.JPanel();
         painelConteudoHospedes = new javax.swing.JPanel();
@@ -87,19 +88,27 @@ public class TelaHome extends javax.swing.JFrame {
 
         ConteinerTitulo.setBackground(new java.awt.Color(255, 255, 255));
         ConteinerTitulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        ConteinerTitulo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 0));
+        ConteinerTitulo.setMaximumSize(new java.awt.Dimension(32767, 10067));
+        ConteinerTitulo.setLayout(new java.awt.FlowLayout(1, 10, 0));
 
         Titulo.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo.setText("Sistema de Gestão Hoteleira");
+        Titulo.setAlignmentX(0.5F);
         ConteinerTitulo.add(Titulo);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Adobe_Express_-_file-removebg-preview(1).png"))); // NOI18N
+        jLabel2.setAlignmentX(0.5F);
+        ConteinerTitulo.add(jLabel2);
 
         ConteinerPart1.add(ConteinerTitulo);
 
         ConteinerBaixo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ConteinerBaixo.setMaximumSize(new java.awt.Dimension(32767, 10767));
+        ConteinerBaixo.setPreferredSize(new java.awt.Dimension(500, 166));
         ConteinerBaixo.setLayout(new java.awt.GridLayout(1, 0));
 
-        Caixinha1Hosped.setBackground(new java.awt.Color(0, 0, 153));
         Caixinha1Hosped.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         Caixinha1Hosped.setForeground(new java.awt.Color(255, 255, 255));
         Caixinha1Hosped.setToolTipText("");
@@ -112,18 +121,21 @@ public class TelaHome extends javax.swing.JFrame {
         painelConteudoHospedes.setOpaque(false);
         painelConteudoHospedes.setLayout(new java.awt.BorderLayout());
 
+        iconHospedagem.setForeground(new java.awt.Color(50, 50, 50));
         iconHospedagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconHospedagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Hospedagem.png"))); // NOI18N
         iconHospedagem.setAlignmentX(0.5F);
         painelConteudoHospedes.add(iconHospedagem, java.awt.BorderLayout.CENTER);
 
-        jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(50, 50, 50));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Hóspedes");
         jLabel3.setAlignmentX(0.5F);
         painelConteudoHospedes.add(jLabel3, java.awt.BorderLayout.PAGE_START);
 
         jLabel14.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(50, 50, 50));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("----");
         jLabel14.setAlignmentX(0.5F);
@@ -133,14 +145,14 @@ public class TelaHome extends javax.swing.JFrame {
 
         ConteinerBaixo.add(Caixinha1Hosped);
 
-        Caixinha4Quarto.setBackground(new java.awt.Color(0, 0, 153));
         Caixinha4Quarto.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Caixinha4Quarto.setForeground(new java.awt.Color(242, 242, 242));
         Caixinha4Quarto.setAlignmentX(19.5F);
         Caixinha4Quarto.setAlignmentY(10.5F);
         Caixinha4Quarto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Caixinha4Quarto.setLayout(new java.awt.BorderLayout());
 
-        painelConteudoQuartos.setBackground(new java.awt.Color(204, 204, 255));
+        painelConteudoQuartos.setForeground(new java.awt.Color(50, 50, 50));
         painelConteudoQuartos.setOpaque(false);
         painelConteudoQuartos.setLayout(new java.awt.BorderLayout());
 
@@ -150,12 +162,14 @@ public class TelaHome extends javax.swing.JFrame {
         painelConteudoQuartos.add(jLabel4, java.awt.BorderLayout.CENTER);
 
         jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(50, 50, 50));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Quartos");
         jLabel7.setAlignmentX(0.5F);
         painelConteudoQuartos.add(jLabel7, java.awt.BorderLayout.PAGE_START);
 
         jLabel5.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(50, 50, 50));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("----");
         jLabel5.setAlignmentX(0.5F);
@@ -165,7 +179,6 @@ public class TelaHome extends javax.swing.JFrame {
 
         ConteinerBaixo.add(Caixinha4Quarto);
 
-        Caixinha2Reserva.setBackground(new java.awt.Color(0, 0, 153));
         Caixinha2Reserva.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         Caixinha2Reserva.setLayout(new java.awt.BorderLayout());
 
@@ -194,11 +207,9 @@ public class TelaHome extends javax.swing.JFrame {
 
         ConteinerBaixo.add(Caixinha2Reserva);
 
-        Caixinha3Funcionario.setBackground(new java.awt.Color(0, 0, 153));
         Caixinha3Funcionario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         Caixinha3Funcionario.setLayout(new java.awt.BorderLayout());
 
-        painelConteudoFuncionarios.setBackground(new java.awt.Color(255, 102, 255));
         painelConteudoFuncionarios.setOpaque(false);
         painelConteudoFuncionarios.setLayout(new java.awt.BorderLayout());
 
@@ -208,7 +219,7 @@ public class TelaHome extends javax.swing.JFrame {
         jLabel11.setAlignmentX(0.5F);
         painelConteudoFuncionarios.add(jLabel11, java.awt.BorderLayout.CENTER);
 
-        jLabel12.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Funcionarios");
         jLabel12.setAlignmentX(0.5F);
@@ -227,7 +238,7 @@ public class TelaHome extends javax.swing.JFrame {
         ConteinerPart1.add(ConteinerBaixo);
 
         painelReservasRecentes.setBackground(new java.awt.Color(255, 255, 255));
-        painelReservasRecentes.setMaximumSize(new java.awt.Dimension(40000, 40000));
+        painelReservasRecentes.setMaximumSize(new java.awt.Dimension(100000, 99999));
         painelReservasRecentes.setLayout(new javax.swing.BoxLayout(painelReservasRecentes, javax.swing.BoxLayout.Y_AXIS));
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
@@ -237,7 +248,8 @@ public class TelaHome extends javax.swing.JFrame {
         jLabel1.setMaximumSize(new java.awt.Dimension(950, 28));
         painelReservasRecentes.add(jLabel1);
 
-        jScrollPane1.setMaximumSize(new java.awt.Dimension(40000, 42767));
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(100000, 99999));
         jScrollPane1.setMinimumSize(new java.awt.Dimension(16, 300));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -455,16 +467,16 @@ public class TelaHome extends javax.swing.JFrame {
 
         jSplitPane1.setRightComponent(ConteinerPart1);
 
-        painelMenuLateralPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        painelMenuLateralPrincipal.setForeground(new java.awt.Color(255, 255, 255));
+        painelMenuLateralPrincipal.setBackground(new java.awt.Color(40, 40, 40));
+        painelMenuLateralPrincipal.setForeground(new java.awt.Color(40, 40, 40));
         painelMenuLateralPrincipal.setLayout(new javax.swing.BoxLayout(painelMenuLateralPrincipal, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(40, 40, 40));
+        jPanel2.setForeground(new java.awt.Color(40, 40, 40));
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
 
         paMenuItemDashboard.setBackground(new java.awt.Color(255, 255, 255));
-        paMenuItemDashboard.setForeground(new java.awt.Color(255, 255, 255));
+        paMenuItemDashboard.setForeground(new java.awt.Color(70, 70, 70));
 
         jButton1.setBackground(new java.awt.Color(70, 70, 70));
         jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
@@ -479,6 +491,7 @@ public class TelaHome extends javax.swing.JFrame {
         jPanel2.add(paMenuItemDashboard);
 
         painelMenuItemHospedes.setBackground(new java.awt.Color(255, 255, 255));
+        painelMenuItemHospedes.setForeground(new java.awt.Color(70, 70, 70));
 
         jButton2.setBackground(new java.awt.Color(70, 70, 70));
         jButton2.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
@@ -616,6 +629,7 @@ public class TelaHome extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
