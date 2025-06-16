@@ -60,7 +60,7 @@ public class TelaHome extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         painelMenuLateralPrincipal = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        paMenuItemDashboard = new javax.swing.JPanel();
+        paMenuItemCadastro = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         painelMenuItemHospedes = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -89,7 +89,7 @@ public class TelaHome extends javax.swing.JFrame {
         ConteinerTitulo.setBackground(new java.awt.Color(255, 255, 255));
         ConteinerTitulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ConteinerTitulo.setMaximumSize(new java.awt.Dimension(32767, 10067));
-        ConteinerTitulo.setLayout(new java.awt.FlowLayout(1, 10, 0));
+        ConteinerTitulo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 0));
 
         Titulo.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -475,20 +475,20 @@ public class TelaHome extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(40, 40, 40));
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
 
-        paMenuItemDashboard.setBackground(new java.awt.Color(255, 255, 255));
-        paMenuItemDashboard.setForeground(new java.awt.Color(70, 70, 70));
+        paMenuItemCadastro.setBackground(new java.awt.Color(255, 255, 255));
+        paMenuItemCadastro.setForeground(new java.awt.Color(70, 70, 70));
 
         jButton1.setBackground(new java.awt.Color(70, 70, 70));
         jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/user.png"))); // NOI18N
-        jButton1.setText("Dashboard");
+        jButton1.setText("Cadastro");
         jButton1.setBorderPainted(false);
         jButton1.setFocusPainted(false);
         jButton1.setMargin(new java.awt.Insets(10, 15, 10, 15));
-        paMenuItemDashboard.add(jButton1);
+        paMenuItemCadastro.add(jButton1);
 
-        jPanel2.add(paMenuItemDashboard);
+        jPanel2.add(paMenuItemCadastro);
 
         painelMenuItemHospedes.setBackground(new java.awt.Color(255, 255, 255));
         painelMenuItemHospedes.setForeground(new java.awt.Color(70, 70, 70));
@@ -641,7 +641,7 @@ public class TelaHome extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JPanel paMenuItemDashboard;
+    private javax.swing.JPanel paMenuItemCadastro;
     private javax.swing.JPanel painelConteudoFuncionarios;
     private javax.swing.JPanel painelConteudoHospedes;
     private javax.swing.JPanel painelConteudoQuartos;
