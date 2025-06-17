@@ -8,6 +8,13 @@
  */
 package telas;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
+
 public class TelaCadastro extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastro.class.getName());
@@ -362,7 +369,160 @@ public class TelaCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // TODO add your handling code here:
+        String idText = jTextField8.getText().trim();
+        String nomeCompleto = jTextField2.getText().trim();
+        String bilhete = jTextField3.getText().trim();
+        String dataNascimentoStr = jTextField1.getText().trim();
+        String email = jTextField4.getText().trim();
+        String endereco = jTextField5.getText().trim();
+        String telefone = jTextField6.getText().trim();
+        String nacionalidade = jTextField11.getText().trim();
+        String observacoes = txtObservacoes.getText().trim();
+
+        // **Validações Campo a Campo:**
+
+        // 1. Validação do ID (jTextField8)
+        if (idText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo ID não pode estar vazio.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return; // Impede que o código continue
+        }
+        try {
+            int id = Integer.parseInt(idText);
+            if (id <= 0) {
+                JOptionPane.showMessageDialog(this, "O ID deve ser um número positivo.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "O ID deve ser um número válido.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 2. Validação do Nome Completo (jTextField2)
+        if (nomeCompleto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Nome Completo não pode estar vazio.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (nomeCompleto.length() < 3) {
+            JOptionPane.showMessageDialog(this, "O Nome Completo deve ter pelo menos 3 caracteres.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!nomeCompleto.matches("^[a-zA-ZáéíóúÁÉÍÓÚãõÃÕçÇ\\s]+$")) { // Permite letras, acentos e espaços
+            JOptionPane.showMessageDialog(this, "O Nome Completo deve conter apenas letras e espaços.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 3. Validação do Nº de Bilhete (jTextField3)
+        if (bilhete.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Nº de Bilhete não pode estar vazio.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        // Exemplo: Validação para bilhete com 12 caracteres alfanuméricos
+        if (!bilhete.matches("^[a-zA-Z0-9]{12}$")) {
+            JOptionPane.showMessageDialog(this, "O Nº de Bilhete deve ter 12 caracteres alfanuméricos (letras e números).", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 4. Validação da Data de Nascimento (jTextField1)
+        if (dataNascimentoStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Data de Nascimento não pode estar vazio.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        try {
+            // Assume o formato "DD/MM/AAAA"
+            String[] partesData = dataNascimentoStr.split("/");
+            if (partesData.length != 3) {
+                JOptionPane.showMessageDialog(this, "Formato de Data de Nascimento inválido. Use DD/MM/AAAA.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int dia = Integer.parseInt(partesData[0]);
+            int mes = Integer.parseInt(partesData[1]);
+            int ano = Integer.parseInt(partesData[2]);
+
+            // Cria uma data e verifica se é válida
+            LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+
+            // Verifica se a data não é futura
+            if (dataNascimento.isAfter(LocalDate.now())) {
+                JOptionPane.showMessageDialog(this, "A Data de Nascimento não pode ser no futuro.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            // Pode adicionar uma validação para idade mínima, por exemplo, maior de 18 anos
+            if (dataNascimento.plusYears(18).isAfter(LocalDate.now())) {
+                 JOptionPane.showMessageDialog(this, "O hóspede deve ter pelo menos 18 anos.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+                 return;
+            }
+
+        } catch (NumberFormatException | DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Formato de Data de Nascimento inválido. Use DD/MM/AAAA e verifique os valores de dia, mês e ano.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 5. Validação do Email (jTextField4)
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Email não pode estar vazio.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        // Regex para validação de email simples
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+        Pattern emailPattern = Pattern.compile(emailRegex);
+        Matcher emailMatcher = emailPattern.matcher(email);
+        if (!emailMatcher.matches()) {
+            JOptionPane.showMessageDialog(this, "Formato de Email inválido. Ex: exemplo@dominio.com", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 6. Validação do Endereço (jTextField5)
+        if (endereco.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Endereço não pode estar vazio.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (endereco.length() < 10) {
+            JOptionPane.showMessageDialog(this, "O Endereço deve ter pelo menos 10 caracteres.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 7. Validação do Telefone (jTextField6)
+        if (telefone.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Telefone não pode estar vazio.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        // Exemplo: Validação para telefone com apenas dígitos e um número específico de dígitos (ex: 9 dígitos)
+        if (!telefone.matches("^[0-9]{9}$")) { // Adapte para o formato de telefone angolano (ex: 9 dígitos)
+            JOptionPane.showMessageDialog(this, "O Telefone deve conter apenas 9 dígitos numéricos.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 8. Validação da Nacionalidade (jTextField11)
+        if (nacionalidade.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Nacionalidade não pode estar vazio.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (nacionalidade.length() < 3) {
+            JOptionPane.showMessageDialog(this, "A Nacionalidade deve ter pelo menos 3 caracteres.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!nacionalidade.matches("^[a-zA-ZáéíóúÁÉÍÓÚãõÃÕçÇ\\s]+$")) {
+            JOptionPane.showMessageDialog(this, "A Nacionalidade deve conter apenas letras e espaços.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 9. Validação do Sexo (jRadioButton1 e jRadioButton2)
+        if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Selecione o Sexo (Feminino ou Masculino).", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 10. Validação das Observações (txtObservacoes)
+        // Você pode ter validações opcionais aqui, como limite de caracteres
+        if (observacoes.length() > 500) {
+            JOptionPane.showMessageDialog(this, "As Observações não podem exceder 500 caracteres.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+
+        // Se todas as validações passarem, você pode prosseguir com a lógica de adicionar/salvar os dados
+        JOptionPane.showMessageDialog(this, "Dados válidos! Pronto para adicionar.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        // Coloque aqui o código para salvar os dados no banco de dados ou outra lógica
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -378,7 +538,33 @@ public class TelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+          String idToUpdateText = jTextField8.getText().trim();
+        if (idToUpdateText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Para atualizar, insira o ID do hóspede.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        try {
+            int idToUpdate = Integer.parseInt(idToUpdateText);
+            if (idToUpdate <= 0) {
+                JOptionPane.showMessageDialog(this, "O ID para atualização deve ser um número positivo.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) 
+        {
+            JOptionPane.showMessageDialog(this, "O ID para atualização deve ser um número válido.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String nomeCompleto = jTextField2.getText().trim();
+        if (nomeCompleto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Nome Completo não pode estar vazio.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        // ... (continue com as validações para todos os campos relevantes)
+
+        JOptionPane.showMessageDialog(this, "Dados válidos para atualização! Hóspede com ID " + idToUpdateText + " pronto para atualizar.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        // Aqui você chamaria sua lógica para atualizar o hóspede com base no ID
         // TODO add your handling code here:
+        }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -390,10 +576,10 @@ public class TelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+           /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -403,13 +589,13 @@ public class TelaCadastro extends javax.swing.JFrame {
                 }
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+            logger.log(java.util.logging.Level.SEVERE, null, (UnsupportedLookAndFeelException) ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new TelaCadastro().setVisible(true));
-    }
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Logo;
