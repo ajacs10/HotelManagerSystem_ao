@@ -4,6 +4,9 @@
  */
 package telas;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane; 
 /**
  *
  * @author mcdebug
@@ -60,17 +63,17 @@ public class TelaHome extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         painelMenuLateralPrincipal = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        paMenuItemCadastro = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnCadastroActionPerformed = new javax.swing.JPanel();
+        btnCadastro = new javax.swing.JButton();
         painelMenuItemHospedes = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        bnHospedagem = new javax.swing.JButton();
         painelMenuItemQuartos = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        bnQuartos = new javax.swing.JButton();
         painelMenuItemReservas = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        bnReservas = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         Funcionario = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        bnFuncionarios = new javax.swing.JButton();
         painelMenuItemDashboard = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -475,78 +478,78 @@ public class TelaHome extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(40, 40, 40));
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
 
-        paMenuItemCadastro.setBackground(new java.awt.Color(255, 255, 255));
-        paMenuItemCadastro.setForeground(new java.awt.Color(70, 70, 70));
+        btnCadastroActionPerformed.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastroActionPerformed.setForeground(new java.awt.Color(70, 70, 70));
 
-        jButton1.setBackground(new java.awt.Color(70, 70, 70));
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/user.png"))); // NOI18N
-        jButton1.setText("Cadastro");
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
-        jButton1.setMargin(new java.awt.Insets(10, 15, 10, 15));
-        paMenuItemCadastro.add(jButton1);
+        btnCadastro.setBackground(new java.awt.Color(70, 70, 70));
+        btnCadastro.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        btnCadastro.setForeground(new java.awt.Color(255, 255, 255));
+        btnCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/user.png"))); // NOI18N
+        btnCadastro.setText("Cadastro");
+        btnCadastro.setBorderPainted(false);
+        btnCadastro.setFocusPainted(false);
+        btnCadastro.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        btnCadastroActionPerformed.add(btnCadastro);
 
-        jPanel2.add(paMenuItemCadastro);
+        jPanel2.add(btnCadastroActionPerformed);
 
         painelMenuItemHospedes.setBackground(new java.awt.Color(255, 255, 255));
         painelMenuItemHospedes.setForeground(new java.awt.Color(70, 70, 70));
 
-        jButton2.setBackground(new java.awt.Color(70, 70, 70));
-        jButton2.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Hospedagem.png"))); // NOI18N
-        jButton2.setText("Hospedes");
-        jButton2.setBorderPainted(false);
-        jButton2.setFocusPainted(false);
-        jButton2.setMargin(new java.awt.Insets(10, 15, 10, 15));
-        painelMenuItemHospedes.add(jButton2);
+        bnHospedagem.setBackground(new java.awt.Color(70, 70, 70));
+        bnHospedagem.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        bnHospedagem.setForeground(new java.awt.Color(255, 255, 255));
+        bnHospedagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Hospedagem.png"))); // NOI18N
+        bnHospedagem.setText("Hospedes");
+        bnHospedagem.setBorderPainted(false);
+        bnHospedagem.setFocusPainted(false);
+        bnHospedagem.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        painelMenuItemHospedes.add(bnHospedagem);
 
         jPanel2.add(painelMenuItemHospedes);
 
         painelMenuItemQuartos.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton3.setBackground(new java.awt.Color(70, 70, 70));
-        jButton3.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/quarto.png"))); // NOI18N
-        jButton3.setText("Quartos");
-        jButton3.setBorderPainted(false);
-        jButton3.setFocusPainted(false);
-        jButton3.setMargin(new java.awt.Insets(10, 15, 10, 15));
-        painelMenuItemQuartos.add(jButton3);
+        bnQuartos.setBackground(new java.awt.Color(70, 70, 70));
+        bnQuartos.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        bnQuartos.setForeground(new java.awt.Color(255, 255, 255));
+        bnQuartos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/quarto.png"))); // NOI18N
+        bnQuartos.setText("Quartos");
+        bnQuartos.setBorderPainted(false);
+        bnQuartos.setFocusPainted(false);
+        bnQuartos.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        painelMenuItemQuartos.add(bnQuartos);
 
         jPanel2.add(painelMenuItemQuartos);
 
         painelMenuItemReservas.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton4.setBackground(new java.awt.Color(70, 70, 70));
-        jButton4.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/reserva.png"))); // NOI18N
-        jButton4.setText("Reservas");
-        jButton4.setBorderPainted(false);
-        jButton4.setFocusPainted(false);
-        jButton4.setMargin(new java.awt.Insets(10, 15, 10, 15));
-        jButton4.setMaximumSize(new java.awt.Dimension(160, 54));
-        jButton4.setMinimumSize(new java.awt.Dimension(160, 54));
-        painelMenuItemReservas.add(jButton4);
+        bnReservas.setBackground(new java.awt.Color(70, 70, 70));
+        bnReservas.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        bnReservas.setForeground(new java.awt.Color(255, 255, 255));
+        bnReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/reserva.png"))); // NOI18N
+        bnReservas.setText("Reservas");
+        bnReservas.setBorderPainted(false);
+        bnReservas.setFocusPainted(false);
+        bnReservas.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        bnReservas.setMaximumSize(new java.awt.Dimension(160, 54));
+        bnReservas.setMinimumSize(new java.awt.Dimension(160, 54));
+        painelMenuItemReservas.add(bnReservas);
 
         jPanel2.add(painelMenuItemReservas);
         jPanel2.add(jLabel6);
 
         Funcionario.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton5.setBackground(new java.awt.Color(70, 70, 70));
-        jButton5.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/pessoas.png"))); // NOI18N
-        jButton5.setText("Funcionarios");
-        jButton5.setBorderPainted(false);
-        jButton5.setFocusPainted(false);
-        jButton5.setMargin(new java.awt.Insets(10, 15, 10, 15));
-        Funcionario.add(jButton5);
+        bnFuncionarios.setBackground(new java.awt.Color(70, 70, 70));
+        bnFuncionarios.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        bnFuncionarios.setForeground(new java.awt.Color(255, 255, 255));
+        bnFuncionarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/pessoas.png"))); // NOI18N
+        bnFuncionarios.setText("Funcionarios");
+        bnFuncionarios.setBorderPainted(false);
+        bnFuncionarios.setFocusPainted(false);
+        bnFuncionarios.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        Funcionario.add(bnFuncionarios);
 
         jPanel2.add(Funcionario);
 
@@ -563,9 +566,8 @@ public class TelaHome extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelMenuItemDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painelMenuItemDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -617,12 +619,13 @@ public class TelaHome extends javax.swing.JFrame {
     private javax.swing.JPanel ConteinerTitulo;
     private javax.swing.JPanel Funcionario;
     private javax.swing.JLabel Titulo;
+    private javax.swing.JButton bnFuncionarios;
+    private javax.swing.JButton bnHospedagem;
+    private javax.swing.JButton bnQuartos;
+    private javax.swing.JButton bnReservas;
+    private javax.swing.JButton btnCadastro;
+    private javax.swing.JPanel btnCadastroActionPerformed;
     private javax.swing.JLabel iconHospedagem;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -641,7 +644,6 @@ public class TelaHome extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JPanel paMenuItemCadastro;
     private javax.swing.JPanel painelConteudoFuncionarios;
     private javax.swing.JPanel painelConteudoHospedes;
     private javax.swing.JPanel painelConteudoQuartos;
