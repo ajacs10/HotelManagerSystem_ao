@@ -1,23 +1,55 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package telas;
 
-/**
- *
- * @author mcdebug
- */
+import javax.swing.JOptionPane;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.ButtonGroup;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+
 public class TelaCadastro extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastro.class.getName());
-
+    private static final Logger logger = Logger.getLogger(TelaCadastro.class.getName());
+    private ButtonGroup sexoButtonGroup;
     /**
      * Creates new form TelaCadastro
      */
-    public TelaCadastro() {
+    public TelaCadastro() 
+    {
         initComponents();
+        groupSexRadioButtons();
     }
+    private void groupSexRadioButtons() 
+    {
+        sexoButtonGroup = new ButtonGroup();
+        sexoButtonGroup.add(jRadioButton1); // Feminino
+        sexoButtonGroup.add(jRadioButton2); // Masculino
+    }
+        private void addListenersManually() 
+        {
+        // Listener para o botão Voltar
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        bnLimparBilhete.addActionListener(this::bnLimparBilheteActionPerformed);
+        bnLimparDataNAsc.addActionListener(this::bnLimparDataNAscActionPerformed);
+        bnEmailLimpar.addActionListener(this::bnEmailLimparActionPerformed);
+        bnLimparEndereco.addActionListener(this::bnLimparEnderecoActionPerformed);
+        bnsexoLimpar.addActionListener(this::bnsexoLimparActionPerformed);
+        bnLimparTelefone.addActionListener(this::bnLimparTelefoneActionPerformed);
+        bnLimparNacional.addActionListener(this::bnLimparNacionalActionPerformed);
+        // jButton1 é o Limpar para o ID
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,9 +60,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroupSexo = new javax.swing.ButtonGroup();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         painelPrincipalCadastro = new javax.swing.JPanel();
         txCadastroHóspedes = new javax.swing.JLabel();
         txNomeCompleto = new javax.swing.JLabel();
@@ -40,7 +70,9 @@ public class TelaCadastro extends javax.swing.JFrame {
         txEmail = new javax.swing.JLabel();
         txNacionalidade = new javax.swing.JLabel();
         txEndereco = new javax.swing.JLabel();
-        txSexo = new javax.swing.JLabel();
+        lbSexo = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -64,18 +96,19 @@ public class TelaCadastro extends javax.swing.JFrame {
         txObservações = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
         Logo = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
         txID = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
-
-        jRadioButton2.setText("Masculino");
-
-        jRadioButton1.setText("Feminino");
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes/Hóspedes");
-        setPreferredSize(new java.awt.Dimension(1000, 700));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(990, 1000));
         setResizable(false);
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(42767, 42767));
 
         painelPrincipalCadastro.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -90,17 +123,32 @@ public class TelaCadastro extends javax.swing.JFrame {
         txNºBilhete.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         txNºBilhete.setText("Nº de Bilhete");
 
+        txDataNasc.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         txDataNasc.setText("Data Nasc.");
 
+        txTelefone.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         txTelefone.setText("Telefone");
 
+        txEmail.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         txEmail.setText("Email");
 
+        txNacionalidade.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         txNacionalidade.setText("Nacionalidade");
 
+        txEndereco.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         txEndereco.setText("Endereço");
 
-        txSexo.setText("Sexo");
+        lbSexo.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        lbSexo.setText("Sexo");
+
+        jRadioButton1.setText("Feminino");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setText("Masculino");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,111 +220,122 @@ public class TelaCadastro extends javax.swing.JFrame {
         txID.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         txID.setText("Id");
 
+        jButton1.setText("Limpar");
+
         javax.swing.GroupLayout painelPrincipalCadastroLayout = new javax.swing.GroupLayout(painelPrincipalCadastro);
         painelPrincipalCadastro.setLayout(painelPrincipalCadastroLayout);
         painelPrincipalCadastroLayout.setHorizontalGroup(
             painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalCadastroLayout.createSequentialGroup()
-                .addGap(157, 157, 157)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addContainerGap(237, Short.MAX_VALUE)
                 .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txID, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
-                            .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txCadastroHóspedes, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(36, 36, 36))
-                        .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
-                            .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalCadastroLayout.createSequentialGroup()
+                        .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txNºBilhete, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txDataNasc)
+                            .addComponent(txEmail)
+                            .addComponent(txEndereco)
+                            .addComponent(txTelefone)
+                            .addComponent(txNacionalidade)
+                            .addComponent(lbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txNomeCompleto, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
                                     .addComponent(btnAdicionar)
-                                    .addGap(112, 112, 112)
-                                    .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
-                                    .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txNomeCompleto)
-                                        .addComponent(txNºBilhete, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txDataNasc)
-                                        .addComponent(txEmail)
-                                        .addComponent(txEndereco)
-                                        .addComponent(txSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txTelefone)
-                                        .addComponent(txNacionalidade)
-                                        .addComponent(txObservações))
-                                    .addGap(37, 37, 37)
-                                    .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelPrincipalCadastroLayout.createSequentialGroup()
-                                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                                            .addComponent(bnsexoLimpar))
+                                    .addGap(25, 25, 25))))
+                        .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
+                                        .addComponent(jRadioButton2)
+                                        .addGap(86, 86, 86)
+                                        .addComponent(jRadioButton1)
+                                        .addGap(128, 128, 128))
+                                    .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
-                                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(bnLimparEndereco))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelPrincipalCadastroLayout.createSequentialGroup()
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(bnLimparDataNAsc))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelPrincipalCadastroLayout.createSequentialGroup()
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(bnLimparBilhete))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelPrincipalCadastroLayout.createSequentialGroup()
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(bnEmailLimpar))
+                                            .addComponent(txObservações)
+                                            .addGap(27, 27, 27)
+                                            .addComponent(jScrollPaneObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelPrincipalCadastroLayout.createSequentialGroup()
                                             .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                                                .addComponent(jTextField11))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(27, 27, 27)
                                             .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(bnLimparTelefone, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(bnLimparNacional, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelPrincipalCadastroLayout.createSequentialGroup()
-                                            .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
-                                            .addGap(42, 42, 42)
-                                            .addComponent(bnLimparNome))
-                                        .addComponent(jScrollPaneObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(21, 21, 21))))
-                .addGap(233, 233, 233))
+                                                .addComponent(bnLimparNome)
+                                                .addComponent(jButton1)
+                                                .addComponent(bnLimparBilhete)
+                                                .addComponent(bnLimparDataNAsc)
+                                                .addComponent(bnEmailLimpar)
+                                                .addComponent(bnLimparEndereco)
+                                                .addComponent(bnsexoLimpar)
+                                                .addComponent(bnLimparTelefone)
+                                                .addComponent(bnLimparNacional))))))
+                            .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
+                                .addGap(95, 95, 95)
+                                .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(409, 409, 409))
+                    .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
+                        .addComponent(txID, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(263, 263, 263))))
+            .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
+                .addGap(296, 296, 296)
+                .addComponent(txCadastroHóspedes, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
+                .addGap(275, 275, 275)
+                .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(181, 181, 181))
         );
         painelPrincipalCadastroLayout.setVerticalGroup(
             painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txCadastroHóspedes))
+                        .addContainerGap()
+                        .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addGap(168, 168, 168)
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txCadastroHóspedes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txID, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txNomeCompleto)
-                    .addComponent(bnLimparNome))
-                .addGap(30, 30, 30)
-                .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bnLimparBilhete)
-                    .addComponent(txNºBilhete))
+                .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bnLimparNome))
+                    .addComponent(txNomeCompleto))
+                .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(bnLimparBilhete))
+                    .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txNºBilhete))))
                 .addGap(18, 18, 18)
-                .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bnLimparDataNAsc)
+                .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bnLimparDataNAsc))
                     .addComponent(txDataNasc))
                 .addGap(28, 28, 28)
                 .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -290,61 +349,160 @@ public class TelaCadastro extends javax.swing.JFrame {
                     .addComponent(bnLimparEndereco))
                 .addGap(24, 24, 24)
                 .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txSexo)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bnsexoLimpar))
+                    .addComponent(bnsexoLimpar)
+                    .addComponent(txTelefone))
                 .addGap(33, 33, 33)
                 .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txTelefone)
                     .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bnLimparTelefone))
-                .addGap(32, 32, 32)
+                    .addComponent(bnLimparTelefone)
+                    .addComponent(txNacionalidade))
+                .addGap(21, 21, 21)
                 .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txNacionalidade)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bnLimparNacional))
-                .addGap(12, 12, 12)
+                    .addComponent(bnLimparNacional)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton1)
+                    .addComponent(lbSexo))
                 .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
+                        .addGap(45, 45, 45)
                         .addComponent(txObservações))
                     .addGroup(painelPrincipalCadastroLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPaneObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(88, 88, 88)
+                .addGap(24, 24, 24)
                 .addGroup(painelPrincipalCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAtualizar)
                     .addComponent(btnExcluir)
                     .addComponent(btnAdicionar))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(654, Short.MAX_VALUE))
         );
+
+        jScrollPane1.setViewportView(painelPrincipalCadastro);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .addComponent(painelPrincipalCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1085, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelPrincipalCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(322, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 962, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // TODO add your handling code here:
+        String id = txtID.getText().trim();
+        String nomeCompleto = txtNomeCompleto.getText().trim();
+        String numeroBilhete = txtNumeroBilhete.getText().trim();
+        String dataNascimentoStr = txtDataNascimento.getText().trim();
+        String telefone = txtTelefone.getText().trim();
+        String email = txtEmail.getText().trim();
+        String endereco = txtEndereco.getText().trim();
+        String nacionalidade = txtNacionalidade.getText().trim();
+        String sexo = "";
+        String observacoes = txtObservacoes.getText().trim();
+
+        // 1. Validação de campos obrigatórios
+        if (id.isEmpty() || nomeCompleto.isEmpty() || numeroBilhete.isEmpty() ||
+            dataNascimentoStr.isEmpty() || telefone.isEmpty() || email.isEmpty() ||
+            endereco.isEmpty() || nacionalidade.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.", "Campos Vazios", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 2. Validação de Sexo (radio buttons)
+        if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione o sexo do hóspede.", "Campo Obrigatório", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            if (jRadioButton1.isSelected()) {
+                sexo = "Feminino";
+            } else if (jRadioButton2.isSelected()) {
+                sexo = "Masculino";
+            }
+        }
+
+        // 3. Validação de Email (formato básico)
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+        Pattern emailPattern = Pattern.compile(emailRegex);
+        Matcher emailMatcher = emailPattern.matcher(email);
+        if (!emailMatcher.matches()) {
+            JOptionPane.showMessageDialog(this, "O email inserido não é válido.", "Formato Inválido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 4. Validação de Telefone (apenas números, pode ser aprimorado para DDD, etc.)
+        if (!telefone.matches("\\d+")) { // Verifica se contém apenas dígitos
+            JOptionPane.showMessageDialog(this, "O telefone deve conter apenas números.", "Formato Inválido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 5. Validação de Data de Nascimento (formato dd/MM/yyyy)
+        LocalDate dataNascimento = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+            // Opcional: Validar se a data não é futura
+            if (dataNascimento.isAfter(LocalDate.now())) {
+                JOptionPane.showMessageDialog(this, "A data de nascimento não pode ser futura.", "Data Inválida", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Formato de Data de Nascimento inválido. Use dd/MM/yyyy.", "Formato Inválido", JOptionPane.WARNING_MESSAGE);
+            logger.log(Level.WARNING, "Erro de parsing de data de nascimento: " + dataNascimentoStr, e);
+            return;
+        }
+        
+        // Se todas as validações passaram
+        JOptionPane.showMessageDialog(this, "Hóspede adicionado com sucesso!\n" +
+                                       "ID: " + id + "\n" +
+                                       "Nome: " + nomeCompleto + "\n" +
+                                       "Bilhete: " + numeroBilhete + "\n" +
+                                       "Data Nasc.: " + dataNascimentoStr + "\n" +
+                                       "Telefone: " + telefone + "\n" +
+                                       "Email: " + email + "\n" +
+                                       "Endereço: " + endereco + "\n" +
+                                       "Nacionalidade: " + nacionalidade + "\n" +
+                                       "Sexo: " + sexo + "\n" +
+                                       "Observações: " + observacoes,
+                                       "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        logger.log(Level.INFO, "Hóspede adicionado: {0}", nomeCompleto);                                          
+
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+         // Lógica de exclusão:
+        // 1. Obter o ID ou outro identificador para exclusão (ex: txtID.getText())
+        String idParaExcluir = txtID.getText().trim();
+        if (idParaExcluir.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira o ID do hóspede a ser excluído.", "Campo Obrigatório", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o hóspede com ID: " + idParaExcluir + "?", "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Implemente sua lógica de banco de dados ou lista para excluir o hóspede
+            // Exemplo fictício:
+            // boolean excluidoComSucesso = suaClasseDeDados.excluirHospede(idParaExcluir);
+            // if (excluidoComSucesso) {
+                 JOptionPane.showMessageDialog(this, "Hóspede com ID " + idParaExcluir + " excluído com sucesso!", "Exclusão Realizada", JOptionPane.INFORMATION_MESSAGE);
+                 logger.log(Level.INFO, "Hóspede excluído: ID {0}", idParaExcluir);
+                 limparTodosOsCampos(); // Limpa os campos após exclusão
+            // } else {
+            //     JOptionPane.showMessageDialog(this, "Erro ao excluir hóspede. ID não encontrado ou problema no sistema.", "Erro", JOptionPane.ERROR_MESSAGE);
+            //     logger.log(Level.SEVERE, "Falha ao excluir hóspede: ID {0}", idParaExcluir);
+            // }
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -356,17 +514,145 @@ public class TelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        // TODO add your handling code here:
+       // Lógica de atualização:
+        // 1. Obter todos os dados dos campos
+        String id = txtID.getText().trim();
+        String nomeCompleto = txtNomeCompleto.getText().trim();
+        String numeroBilhete = txtNumeroBilhete.getText().trim();
+        String dataNascimentoStr = txtDataNascimento.getText().trim();
+        String telefone = txtTelefone.getText().trim();
+        String email = txtEmail.getText().trim();
+        String endereco = txtEndereco.getText().trim();
+        String nacionalidade = txtNacionalidade.getText().trim();
+        String sexo = "";
+        String observacoes = txtObservacoes.getText().trim();
+
+        // 2. Validação básica (pelo menos o ID e nome devem estar preenchidos para atualizar)
+        if (id.isEmpty() || nomeCompleto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Para atualizar, o ID e o Nome Completo são obrigatórios.", "Campos Obrigatórios", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // As mesmas validações de "Adicionar" podem ser aplicadas aqui para garantir a integridade dos novos dados
+        // (validação de sexo, email, telefone, data)
+        if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione o sexo do hóspede.", "Campo Obrigatório", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            if (jRadioButton1.isSelected()) {
+                sexo = "Feminino";
+            } else if (jRadioButton2.isSelected()) {
+                sexo = "Masculino";
+            }
+        }
+        
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+        Pattern emailPattern = Pattern.compile(emailRegex);
+        Matcher emailMatcher = emailPattern.matcher(email);
+        if (!emailMatcher.matches()) {
+            JOptionPane.showMessageDialog(this, "O email inserido não é válido.", "Formato Inválido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!telefone.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "O telefone deve conter apenas números.", "Formato Inválido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        LocalDate dataNascimento = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+            if (dataNascimento.isAfter(LocalDate.now())) {
+                JOptionPane.showMessageDialog(this, "A data de nascimento não pode ser futura.", "Data Inválida", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Formato de Data de Nascimento inválido. Use dd/MM/yyyy.", "Formato Inválido", JOptionPane.WARNING_MESSAGE);
+            logger.log(Level.WARNING, "Erro de parsing de data de nascimento para atualização: " + dataNascimentoStr, e);
+            return;
+        }
+
+        // Implemente sua lógica de banco de dados ou lista para atualizar o hóspede
+        // Exemplo fictício:
+        // Hospede hospedeAtualizado = new Hospede(id, nomeCompleto, numeroBilhete, dataNascimento, telefone, email, endereco, nacionalidade, sexo, observacoes);
+        // boolean atualizadoComSucesso = suaClasseDeDados.atualizarHospede(hospedeAtualizado);
+        // if (atualizadoComSucesso) {
+             JOptionPane.showMessageDialog(this, "Hóspede com ID " + id + " atualizado com sucesso!", "Atualização Realizada", JOptionPane.INFORMATION_MESSAGE);
+             logger.log(Level.INFO, "Hóspede atualizado: ID {0}", id);
+             limparTodosOsCampos(); // Limpa os campos após atualização
+        // } else {
+        //     JOptionPane.showMessageDialog(this, "Erro ao atualizar hóspede. ID não encontrado ou problema no sistema.", "Erro", JOptionPane.ERROR_MESSAGE);
+        //     logger.log(Level.SEVERE, "Falha ao atualizar hóspede: ID {0}", id);
+        // }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+     private void bnLimparNomeActionPerformed(java.awt.event.ActionEvent evt) {
+        txtNomeCompleto.setText("");
+    }
+
+    private void bnLimparBilheteActionPerformed(java.awt.event.ActionEvent evt) {
+        txtNumeroBilhete.setText("");
+    }
+
+    private void bnLimparDataNAscActionPerformed(java.awt.event.ActionEvent evt) {
+        txtDataNascimento.setText("");
+    }
+
+    private void bnEmailLimparActionPerformed(java.awt.event.ActionEvent evt) {
+        txtEmail.setText("");
+    }
+
+    private void bnLimparEnderecoActionPerformed(java.awt.event.ActionEvent evt) {
+        txtEndereco.setText("");
+    }
+
+    private void bnsexoLimparActionPerformed(java.awt.event.ActionEvent evt) {
+        sexoButtonGroup.clearSelection(); // Limpa a seleção dos radio buttons
+    }
+
+    private void bnLimparTelefoneActionPerformed(java.awt.event.ActionEvent evt) {
+        txtTelefone.setText("");
+    }
+
+    private void bnLimparNacionalActionPerformed(java.awt.event.ActionEvent evt) {
+        txtNacionalidade.setText("");
+    }
+
+    }
+    private void limparTodosOsCampos() {
+        txtID.setText("");
+        txtNomeCompleto.setText("");
+        txtNumeroBilhete.setText("");
+        txtDataNascimento.setText("");
+        txtEmail.setText("");
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        txtNacionalidade.setText("");
+        sexoButtonGroup.clearSelection(); // Limpa a seleção do sexo
+        txtObservacoes.setText("");
+    }
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // Cria uma nova instância da TelaHome
+        TelaHome telaHome = new TelaHome();
+        // Torna a TelaHome visível
+        telaHome.setVisible(true);
+        // Fecha a tela atual (TelaCadastro)
+        this.dispose();
+    }                                        
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+     public static void main(String args[]) 
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -379,8 +665,10 @@ public class TelaCadastro extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+        catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) 
+        {
+            logger.log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -401,10 +689,11 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.ButtonGroup buttonGroupSexo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPaneObservacoes;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField11;
@@ -413,8 +702,8 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JLabel lbSexo;
     private javax.swing.JPanel painelPrincipalCadastro;
     private javax.swing.JLabel txCadastroHóspedes;
     private javax.swing.JLabel txDataNasc;
@@ -425,8 +714,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel txNomeCompleto;
     private javax.swing.JLabel txNºBilhete;
     private javax.swing.JLabel txObservações;
-    private javax.swing.JLabel txSexo;
     private javax.swing.JLabel txTelefone;
     private javax.swing.JTextArea txtObservacoes;
     // End of variables declaration//GEN-END:variables
-}
+

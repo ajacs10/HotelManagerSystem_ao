@@ -24,7 +24,7 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
     {
         initComponents();
          setLocationRelativeTo(null); 
-         
+    bnVoltar.addActionListener(this::bnVoltarActionPerformed);  
     DefaultTableModel model = (DefaultTableModel) jTableFuncionarios.getModel();
     model.setColumnIdentifiers(new Object[]
     {
@@ -40,6 +40,7 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
         buttonGroupSexo = new javax.swing.ButtonGroup();
         rbFeminino = new javax.swing.JRadioButton();
         rbMasculino = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         painelPrincipalFuncionarios = new javax.swing.JPanel();
         jScrollPaneTabelaFuncionarios = new javax.swing.JScrollPane();
         jTableFuncionarios = new javax.swing.JTable();
@@ -56,11 +57,11 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
         lblSalario = new javax.swing.JLabel();
         lblEndereco = new javax.swing.JLabel();
         lblSexo = new javax.swing.JLabel();
-        lblObservacoes = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         bnAdicionar = new javax.swing.JButton();
         bnAtualizar = new javax.swing.JButton();
         bnExcluir = new javax.swing.JButton();
-        bnVoltar = new javax.swing.JButton();
         txtIDFunc = new javax.swing.JTextField();
         txtNomeCompletoFunc = new javax.swing.JTextField();
         txtNumeroBilheteFunc = new javax.swing.JTextField();
@@ -84,6 +85,9 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
         btnLimparDataContracao = new javax.swing.JButton();
         btnLimparSalario = new javax.swing.JButton();
         btnLimparEndereco = new javax.swing.JButton();
+        bnVoltar = new javax.swing.JButton();
+        lblObservacoes = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         rbFeminino.setText("Feminino");
         rbFeminino.addActionListener(new java.awt.event.ActionListener() {
@@ -100,9 +104,6 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
 
         jTableFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null}
@@ -127,29 +128,42 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
         tITULO.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tITULO.setText("Gestão de Funcionários");
 
+        lblNomeCompleto.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblNomeCompleto.setText("Nome Completo");
 
+        lblID.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         lblID.setText("Id");
 
+        lblNumeroBilhete.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblNumeroBilhete.setText("Nº de Bilhete");
 
+        lblDataNascimento.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblDataNascimento.setText("Data Nasc.:");
 
+        lblTelefone.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblTelefone.setText("Telefone");
 
+        lblEmail.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblEmail.setText("Email");
 
+        lblCargoFuncao.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblCargoFuncao.setText("Cargo/Função");
 
+        lblDataContratacao.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblDataContratacao.setText("Data Contratação");
 
+        lblSalario.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblSalario.setText("Salário");
 
+        lblEndereco.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblEndereco.setText("Endereço");
 
+        lblSexo.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         lblSexo.setText("Sexo");
 
-        lblObservacoes.setText("Observações");
+        jRadioButton1.setText("Masculino");
+
+        jRadioButton2.setText("Feminino");
 
         bnAdicionar.setText("Adicionar");
 
@@ -166,8 +180,6 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
                 bnExcluirActionPerformed(evt);
             }
         });
-
-        bnVoltar.setText("Voltar");
 
         txtNomeCompletoFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,20 +203,27 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
             jScrollPaneObservacoesFuncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jScrollPaneObservacoesFuncLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(painelObservacoesFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(painelObservacoesFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
         jScrollPaneObservacoesFuncLayout.setVerticalGroup(
             jScrollPaneObservacoesFuncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jScrollPaneObservacoesFuncLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelObservacoesFunc, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(painelObservacoesFunc, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         btnLimparID.setText("Limpar");
+        btnLimparID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparIDActionPerformed(evt);
+            }
+        });
 
         btnLimparNome.setText("Limpar");
+        btnLimparNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparNomeActionPerformed(evt);
+            }
+        });
 
         btnLimparBilhete.setText("Limpar");
 
@@ -221,180 +240,230 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
         btnLimparSalario.setText("Limpar");
 
         btnLimparEndereco.setText("Limpar");
+        btnLimparEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparEnderecoActionPerformed(evt);
+            }
+        });
+
+        bnVoltar.setText("Voltar");
+
+        lblObservacoes.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        lblObservacoes.setText("Observações");
+
+        jButton1.setText("Limpar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelPrincipalFuncionariosLayout = new javax.swing.GroupLayout(painelPrincipalFuncionarios);
         painelPrincipalFuncionarios.setLayout(painelPrincipalFuncionariosLayout);
         painelPrincipalFuncionariosLayout.setHorizontalGroup(
             painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
-                .addGap(184, 184, 184)
-                .addComponent(bnVoltar)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
-                .addContainerGap(266, Short.MAX_VALUE)
+                .addGap(356, 356, 356)
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEndereco)
+                    .addComponent(lblDataContratacao)
                     .addComponent(lblSalario)
-                    .addComponent(tITULO, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LOGO, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
-                        .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
-                                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNomeCompleto)
-                                    .addComponent(lblNumeroBilhete)
-                                    .addComponent(lblDataNascimento)
-                                    .addComponent(lblTelefone)
-                                    .addComponent(lblEmail)
-                                    .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(27, 27, 27)
-                                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtTelefoneFunc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                                    .addComponent(txtDataNascimentoFunc, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNumeroBilheteFunc, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNomeCompletoFunc, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtIDFunc, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEmailFunc)))
-                            .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelPrincipalFuncionariosLayout.createSequentialGroup()
-                                    .addComponent(lblCargoFuncao)
-                                    .addGap(40, 40, 40)
-                                    .addComponent(txtCargoFuncaoFunc, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelPrincipalFuncionariosLayout.createSequentialGroup()
-                                    .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblDataContratacao)
-                                        .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtEnderecoFunc)
-                                        .addComponent(txtSalarioFunc)
-                                        .addComponent(txtDataContratacaoFunc)))))
-                        .addGap(32, 32, 32)
-                        .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLimparCargoFuncao)
-                            .addComponent(btnLimparID)
-                            .addComponent(btnLimparNome)
-                            .addComponent(btnLimparBilhete)
-                            .addComponent(btnLimparNascimento)
-                            .addComponent(btnLimparTelefone)
-                            .addComponent(btnLimparEmail)
-                            .addComponent(btnLimparDataContracao)
-                            .addComponent(btnLimparSalario)
-                            .addComponent(btnLimparEndereco)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
-                        .addComponent(lblObservacoes)
-                        .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
-                                .addGap(318, 318, 318)
-                                .addComponent(bnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
-                                .addGap(196, 196, 196)
-                                .addComponent(jScrollPaneObservacoesFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(96, 96, 96)))
-                .addGap(463, 463, 463))
-            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
-                .addGap(279, 279, 279)
+                    .addComponent(lblCargoFuncao)
+                    .addComponent(lblEmail)
+                    .addComponent(lblTelefone)
+                    .addComponent(lblDataNascimento)
+                    .addComponent(lblNumeroBilhete)
+                    .addComponent(lblNomeCompleto)
+                    .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEndereco)
+                    .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                                .addComponent(txtCargoFuncaoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addComponent(btnLimparCargoFuncao))
+                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                                .addComponent(txtEmailFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimparEmail))
+                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                                .addComponent(txtTelefoneFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimparTelefone))
+                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                                .addComponent(txtDataNascimentoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimparNascimento))
+                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                                .addComponent(txtNumeroBilheteFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimparBilhete))
+                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                                .addComponent(txtNomeCompletoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimparNome))
+                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                                .addComponent(txtIDFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimparID))
+                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtEnderecoFunc, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                                    .addComponent(txtSalarioFunc)
+                                    .addComponent(txtDataContratacaoFunc))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnLimparDataContracao, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnLimparSalario, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnLimparEndereco, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jRadioButton1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(lblObservacoes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPaneObservacoesFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                                .addGap(140, 140, 140)
+                                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addGap(9, 9, 9)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
+                .addGap(0, 132, Short.MAX_VALUE)
+                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addComponent(jScrollPaneTabelaFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 1007, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addComponent(bnAtualizar)
+                        .addGap(137, 137, 137)
                         .addComponent(bnAdicionar)
-                        .addGap(131, 131, 131)
-                        .addComponent(bnAtualizar))
-                    .addComponent(jScrollPaneTabelaFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(323, 323, 323))))
+            .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addGap(373, 373, 373)
+                        .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LOGO, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tITULO, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addGap(876, 876, 876)
+                        .addComponent(bnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelPrincipalFuncionariosLayout.setVerticalGroup(
             painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LOGO, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bnVoltar))
+                    .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(LOGO, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(bnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tITULO)
                 .addGap(32, 32, 32)
-                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblID)
-                    .addComponent(txtIDFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimparID))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNomeCompleto)
-                    .addComponent(txtNomeCompletoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimparNome))
+                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnLimparID)
+                            .addComponent(txtIDFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblID))
+                        .addGap(37, 37, 37)
+                        .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNomeCompletoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNomeCompleto)))
+                    .addComponent(btnLimparNome, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumeroBilhete)
                     .addComponent(txtNumeroBilheteFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimparBilhete))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDataNascimento)
                     .addComponent(txtDataNascimentoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimparNascimento))
-                .addGap(21, 21, 21)
+                .addGap(28, 28, 28)
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTelefone)
                     .addComponent(txtTelefoneFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimparTelefone))
-                .addGap(21, 21, 21)
-                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(26, 26, 26)
+                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail)
-                    .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtEmailFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnLimparEmail)))
-                .addGap(18, 18, 18)
+                    .addComponent(txtEmailFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimparEmail))
+                .addGap(28, 28, 28)
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCargoFuncao)
                     .addComponent(txtCargoFuncaoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimparCargoFuncao))
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDataContratacao)
                     .addComponent(txtDataContratacaoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimparDataContracao))
+                    .addComponent(btnLimparDataContracao)
+                    .addComponent(lblDataContratacao))
                 .addGap(18, 18, 18)
-                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSalario)
-                    .addComponent(txtSalarioFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimparSalario))
-                .addGap(18, 18, 18)
-                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEndereco)
-                    .addComponent(txtEnderecoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimparEndereco))
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                    .addComponent(btnLimparSalario)
+                    .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSalarioFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSalario)))
+                .addGap(25, 25, 25)
+                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEnderecoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimparEndereco)
+                    .addComponent(lblEndereco))
+                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblObservacoes)
-                        .addGap(73, 73, 73))
-                    .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(lblSexo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addComponent(jScrollPaneObservacoesFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)))
+                        .addGap(30, 30, 30))
+                    .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSexo)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton2)
+                            .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addComponent(lblObservacoes)
+                        .addGap(69, 69, 69)))
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bnAtualizar)
                     .addComponent(bnExcluir)
                     .addComponent(bnAdicionar))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPaneTabelaFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPaneTabelaFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(192, Short.MAX_VALUE))
         );
+
+        jScrollPane1.setViewportView(painelPrincipalFuncionarios);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(painelPrincipalFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(painelPrincipalFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(111, 111, 111))
         );
 
         pack();
@@ -440,47 +509,68 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
     
     limparTodosOsCamposFunc();
 }   
-    private void txtNomeCompletoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCompletoFuncActionPerformed
+    private void rbFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFemininoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeCompletoFuncActionPerformed
+    }//GEN-LAST:event_rbFemininoActionPerformed
+
+    private void btnLimparEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparEnderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimparEnderecoActionPerformed
+
+    private void btnLimparNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimparNomeActionPerformed
 
     private void txtDataContratacaoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataContratacaoFuncActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataContratacaoFuncActionPerformed
 
-    private void rbFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFemininoActionPerformed
+    private void txtNomeCompletoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCompletoFuncActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rbFemininoActionPerformed
+    }//GEN-LAST:event_txtNomeCompletoFuncActionPerformed
+
+    private void bnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnExcluirActionPerformed
+        int selectedRow = jTableFuncionarios.getSelectedRow();
+
+        if (selectedRow == -1)
+        {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione um funcionário na tabela para excluir.", "Nenhuma Seleção", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o funcionário selecionado?", "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION)
+        {
+
+            DefaultTableModel model = (DefaultTableModel) jTableFuncionarios.getModel();
+            model.removeRow(selectedRow);
+            JOptionPane.showMessageDialog(this, "Funcionário excluído (simulado)!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            limparTodosOsCamposFunc();
+        }
+    }//GEN-LAST:event_bnExcluirActionPerformed
 
     private void bnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnAtualizarActionPerformed
 
-    JOptionPane.showMessageDialog(this, "Dados do Funcionário atualizados (simulado)!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Dados do Funcionário atualizados (simulado)!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_bnAtualizarActionPerformed
 
-    private void bnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnExcluirActionPerformed
-        int selectedRow = jTableFuncionarios.getSelectedRow(); 
+    private void btnLimparIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimparIDActionPerformed
 
-    if (selectedRow == -1) 
-    {
-        JOptionPane.showMessageDialog(this, "Por favor, selecione um funcionário na tabela para excluir.", "Nenhuma Seleção", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o funcionário selecionado?", "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
-    if (confirm == JOptionPane.YES_OPTION) 
-    {
-     
-        DefaultTableModel model = (DefaultTableModel) jTableFuncionarios.getModel();
-        model.removeRow(selectedRow);
-        JOptionPane.showMessageDialog(this, "Funcionário excluído (simulado)!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        limparTodosOsCamposFunc();
-    }
-    }//GEN-LAST:event_bnExcluirActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void bnVoltarActionPerformed(java.awt.event.ActionEvent evt) 
-    {                                         
-    this.dispose();
+    {
+        TelaHome telaHome = new TelaHome();
+        telaHome.setVisible(true);
+        this.dispose();
     }
+    
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -520,6 +610,10 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
     private javax.swing.JButton btnLimparSalario;
     private javax.swing.JButton btnLimparTelefone;
     private javax.swing.ButtonGroup buttonGroupSexo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jScrollPaneObservacoesFunc;
     private javax.swing.JScrollPane jScrollPaneTabelaFuncionarios;
     private javax.swing.JTable jTableFuncionarios;

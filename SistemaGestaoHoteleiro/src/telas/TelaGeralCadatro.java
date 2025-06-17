@@ -16,6 +16,10 @@ public class TelaGeralCadatro extends javax.swing.JFrame {
     public TelaGeralCadatro() {
         initComponents();
         setLocationRelativeTo(null); 
+        
+        bnFuncionario.addActionListener(this::bnFuncionarioActionPerformed);
+        
+        bnHospedes.addActionListener(this::bnHospedesActionPerformed);
     }
 
     /**
@@ -54,15 +58,15 @@ public class TelaGeralCadatro extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(175, 175, 175)
+                .addGap(193, 193, 193)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Cadastar, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(275, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(237, Short.MAX_VALUE)
-                .addComponent(bnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
                 .addComponent(bnHospedes, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(211, 211, 211))
         );
@@ -77,7 +81,7 @@ public class TelaGeralCadatro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bnHospedes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(262, Short.MAX_VALUE))
         );
 
         pack();
@@ -92,6 +96,7 @@ public class TelaGeralCadatro extends javax.swing.JFrame {
        
         TelaCadatroFuncionario telaFuncionario = new TelaCadatroFuncionario();
         telaFuncionario.setVisible(true);
+        this.dispose();
              
     }                                            
 
@@ -99,7 +104,8 @@ public class TelaGeralCadatro extends javax.swing.JFrame {
     {                                           
       
         TelaCadastro telaHospedes = new TelaCadastro();
-        telaHospedes.setVisible(true); 
+        telaHospedes.setVisible(true);
+        this.dispose(); 
         
     }
     public static void main(String args[]) 

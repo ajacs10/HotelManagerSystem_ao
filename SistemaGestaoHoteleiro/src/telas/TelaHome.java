@@ -589,8 +589,7 @@ public class TelaHome extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        // TODO add your handling code here:
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {
 
     // 1. Cria uma nova instância da sua tela de cadastro geral
     TelaGeralCadatro telaGeralCadastro = new TelaGeralCadatro();
@@ -598,9 +597,7 @@ public class TelaHome extends javax.swing.JFrame {
     // 2. Torna a nova tela visível
     telaGeralCadastro.setVisible(true);
 
-    // 3. (Opcional) Fecha a tela atual, se não for mais necessária.
-    // Se você quiser que a tela onde o botão está se feche, descomente a linha abaixo.
-    // this.dispose();
+    this.dispose();
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     // Método para o botão "Hospedes"
@@ -735,11 +732,12 @@ class TelaQuartos extends javax.swing.JFrame {
     }
 }
 
-// Se 'TelaReservas.java' ainda não foi criada no seu pacote 'telas', adicione este placeholder:
-class TelaReservas extends javax.swing.JFrame {
+class TelaReservas extends javax.swing.JFrame 
+{
     public TelaReservas() {
         setTitle("Gestão de Reservas");
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
  }
+}
