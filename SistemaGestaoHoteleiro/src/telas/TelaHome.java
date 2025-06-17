@@ -587,25 +587,81 @@ public class TelaHome extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        // Método para o botão "Cadastro"
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {                                          
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+            TelaGeralCadatro telaGeralCadastro = new TelaGeralCadatro();
+            telaGeralCadastro.setVisible(true);
+            this.dispose(); // Fecha a TelaHome ao abrir a TelaGeralCadatro
+        } catch (NoClassDefFoundError | Exception e) {
+            logger.log(Level.SEVERE, "Erro ao abrir TelaGeralCadatro:", e);
+            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Cadastro Geral. Verifique se a classe 'TelaGeralCadatro' existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }                                         
+
+    // Método para o botão "Hospedes"
+    private void bnHospedagemActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        try {
+            // Assumindo que 'TelaCadastro' é a sua tela de cadastro de hóspedes/clientes.
+            // Se você tiver uma classe 'TelaHospedes.java' separada, use-a aqui.
+            TelaCadastro telaHospedes = new TelaCadastro(); 
+            telaHospedes.setVisible(true);
+            this.dispose(); // Fecha a TelaHome
+        } catch (NoClassDefFoundError | Exception e) {
+            logger.log(Level.SEVERE, "Erro ao abrir Tela de Hóspedes:", e);
+            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Hóspedes. Verifique se a classe 'TelaCadastro' (ou 'TelaHospedes') existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }                                          
+
+    // Método para o botão "Quartos"
+    private void bnQuartosActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        try {
+            // Você precisará criar a classe 'TelaQuartos.java' no seu pacote 'telas'.
+            TelaQuartos telaQuartos = new TelaQuartos();
+            telaQuartos.setVisible(true);
+            this.dispose(); // Fecha a TelaHome
+        } catch (NoClassDefFoundError | Exception e) {
+            logger.log(Level.SEVERE, "Erro ao abrir TelaQuartos:", e);
+            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Quartos. Verifique se a classe 'TelaQuartos' existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }                                       
+
+    // Método para o botão "Reservas"
+    private void bnReservasActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        try {
+            // Você precisará criar a classe 'TelaReservas.java' no seu pacote 'telas'.
+            TelaReservas telaReservas = new TelaReservas();
+            telaReservas.setVisible(true);
+            this.dispose(); // Fecha a TelaHome
+        } catch (NoClassDefFoundError | Exception e) {
+            logger.log(Level.SEVERE, "Erro ao abrir TelaReservas:", e);
+            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Reservas. Verifique se a classe 'TelaReservas' existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }                                        
+
+    // Método para o botão "Funcionarios"
+    private void bnFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        try {
+            // Usar o nome correto da classe para funcionários: TelaCadatroFuncionario
+            TelaCadatroFuncionario telaFuncionario = new TelaCadatroFuncionario();
+            telaFuncionario.setVisible(true);
+            this.dispose(); // Fecha a TelaHome
+        } catch (NoClassDefFoundError | Exception e) {
+            logger.log(Level.SEVERE, "Erro ao abrir TelaCadatroFuncionario:", e);
+            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Funcionários. Verifique se a classe 'TelaCadatroFuncionario' existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }  
+    public static void main(String args[]) {
+     try {
+         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+             if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                 break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new TelaHome().setVisible(true));
     }
 
