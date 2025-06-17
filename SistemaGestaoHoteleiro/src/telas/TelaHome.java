@@ -489,6 +489,11 @@ public class TelaHome extends javax.swing.JFrame {
         btnCadastro.setBorderPainted(false);
         btnCadastro.setFocusPainted(false);
         btnCadastro.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        btnCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroActionPerformed(evt);
+            }
+        });
         btnCadastroActionPerformed.add(btnCadastro);
 
         jPanel2.add(btnCadastroActionPerformed);
@@ -584,20 +589,19 @@ public class TelaHome extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-        // Método para o botão "Cadastro"
-    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        try {
-            TelaGeralCadatro telaGeralCadastro = new TelaGeralCadatro();
-            telaGeralCadastro.setVisible(true);
-            this.dispose(); // Fecha a TelaHome ao abrir a TelaGeralCadatro
-        } catch (NoClassDefFoundError | Exception e) {
-            logger.log(Level.SEVERE, "Erro ao abrir TelaGeralCadatro:", e);
-            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Cadastro Geral. Verifique se a classe 'TelaGeralCadatro' existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }                                         
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
+        // TODO add your handling code here:
+
+    // 1. Cria uma nova instância da sua tela de cadastro geral
+    TelaGeralCadatro telaGeralCadastro = new TelaGeralCadatro();
+
+    // 2. Torna a nova tela visível
+    telaGeralCadastro.setVisible(true);
+
+    // 3. (Opcional) Fecha a tela atual, se não for mais necessária.
+    // Se você quiser que a tela onde o botão está se feche, descomente a linha abaixo.
+    // this.dispose();
+    }//GEN-LAST:event_btnCadastroActionPerformed
 
     // Método para o botão "Hospedes"
     private void bnHospedagemActionPerformed(java.awt.event.ActionEvent evt) {                                           
@@ -650,20 +654,29 @@ public class TelaHome extends javax.swing.JFrame {
             logger.log(Level.SEVERE, "Erro ao abrir TelaCadatroFuncionario:", e);
             JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Funcionários. Verifique se a classe 'TelaCadatroFuncionario' existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }  
+    }                       
     public static void main(String args[]) {
-     try {
-         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-             if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                 break;
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new TelaHome().setVisible(true));
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Caixinha1Hosped;
@@ -712,3 +725,21 @@ public class TelaHome extends javax.swing.JFrame {
     private javax.swing.JPanel painelReservasRecentes;
     // End of variables declaration//GEN-END:variables
 }
+
+class TelaQuartos extends javax.swing.JFrame {
+    public TelaQuartos() {
+        setTitle("Gestão de Quartos");
+        setSize(800, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    }
+}
+
+// Se 'TelaReservas.java' ainda não foi criada no seu pacote 'telas', adicione este placeholder:
+class TelaReservas extends javax.swing.JFrame {
+    public TelaReservas() {
+        setTitle("Gestão de Reservas");
+        setSize(800, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+ }
