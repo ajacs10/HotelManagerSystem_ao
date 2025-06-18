@@ -33,6 +33,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        javax.swing.ButtonGroup buttonGroup1 = new javax.swing.ButtonGroup();
         PainelGeralJPAINEL = new javax.swing.JPanel();
         FormularioGeral = new javax.swing.JPanel();
         Logo = new javax.swing.JLabel();
@@ -45,16 +46,16 @@ public class TelaCadastro extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         IDFilde = new javax.swing.JTextField();
         IDLimparBN = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        LimparNome = new javax.swing.JButton();
         jTextFieldNome = new javax.swing.JTextField();
         jTextFieldBilhere = new javax.swing.JTextField();
         jTextFieldDataNasc = new javax.swing.JTextField();
         jTextFieldTelefone = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        LimparBilhete = new javax.swing.JButton();
+        LimparDataNasci = new javax.swing.JButton();
+        LimparTelefone = new javax.swing.JButton();
+        LimparEndereco = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnAdicionarActionPerformed = new javax.swing.JButton();
         btnAtualizarActionPerformed = new javax.swing.JButton();
@@ -68,7 +69,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         jRadioButton3 = new javax.swing.JRadioButton();
         jLabelDate = new javax.swing.JLabel();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jButton6 = new javax.swing.JButton();
+        LimparData = new javax.swing.JButton();
         jFormattedTextField2 = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
 
@@ -77,7 +78,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         Logo.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/logo1-removebg-preview.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Cadastro Hóspedes");
         jLabel2.setAlignmentX(0.5F);
@@ -102,20 +103,20 @@ public class TelaCadastro extends javax.swing.JFrame {
 
         IDLimparBN.setText("Limpar");
 
-        jButton1.setText("Limpar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        LimparNome.setText("Limpar");
+        LimparNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                LimparNomeActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Limpar");
+        LimparBilhete.setText("Limpar");
 
-        jButton3.setText("Limpar");
+        LimparDataNasci.setText("Limpar");
 
-        jButton4.setText("Limpar");
+        LimparTelefone.setText("Limpar");
 
-        jButton5.setText("Limpar");
+        LimparEndereco.setText("Limpar");
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel1.setText("Numero De Hospedes");
@@ -155,9 +156,13 @@ public class TelaCadastro extends javax.swing.JFrame {
         lbSexo.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         lbSexo.setText("Sexo");
 
+        jRadioButton1.setBackground(new java.awt.Color(255, 51, 0));
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jRadioButton1.setText("Femenino");
 
+        jRadioButton2.setBackground(new java.awt.Color(255, 51, 0));
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jRadioButton2.setText("Masculino");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -166,6 +171,8 @@ public class TelaCadastro extends javax.swing.JFrame {
             }
         });
 
+        jRadioButton3.setBackground(new java.awt.Color(255, 51, 51));
+        buttonGroup1.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jRadioButton3.setText("Outros");
 
@@ -173,13 +180,13 @@ public class TelaCadastro extends javax.swing.JFrame {
         jLabelDate.setText("Data");
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter(" ##/ ##  /  ####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jButton6.setText("Limpar");
+        LimparData.setText("Limpar");
 
         try {
             jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
@@ -201,123 +208,133 @@ public class TelaCadastro extends javax.swing.JFrame {
         FormularioGeralLayout.setHorizontalGroup(
             FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FormularioGeralLayout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FormularioGeralLayout.createSequentialGroup()
+                        .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(FormularioGeralLayout.createSequentialGroup()
+                                .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txDataNasc)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txNºBilhetePassaport)
+                                    .addComponent(txNomeCompleto)
+                                    .addComponent(lbID)
+                                    .addGroup(FormularioGeralLayout.createSequentialGroup()
+                                        .addComponent(jLabelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(36, 36, 36)
+                                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnExcluirActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(LimparNome)
+                                    .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(FormularioGeralLayout.createSequentialGroup()
+                                            .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(IDFilde)
+                                                .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextFieldDataNasc, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextFieldTelefone, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextField5)
+                                                .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextFieldBilhere, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(FormularioGeralLayout.createSequentialGroup()
+                                                    .addGap(56, 56, 56)
+                                                    .addComponent(IDLimparBN))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormularioGeralLayout.createSequentialGroup()
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(LimparBilhete, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(LimparDataNasci, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(LimparTelefone, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(LimparEndereco, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                                        .addGroup(FormularioGeralLayout.createSequentialGroup()
+                                            .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jRadioButton1)
+                                                .addGroup(FormularioGeralLayout.createSequentialGroup()
+                                                    .addGap(63, 63, 63)
+                                                    .addComponent(jLabel3)
+                                                    .addGap(27, 27, 27)
+                                                    .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jRadioButton2)
+                                                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(FormularioGeralLayout.createSequentialGroup()
+                                                    .addGap(52, 52, 52)
+                                                    .addComponent(btnAtualizarActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGap(49, 49, 49)
+                                            .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(btnAdicionarActionPerformed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(FormularioGeralLayout.createSequentialGroup()
+                                                    .addComponent(jRadioButton3)
+                                                    .addGap(0, 0, Short.MAX_VALUE))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormularioGeralLayout.createSequentialGroup()
+                                                    .addGap(0, 0, Short.MAX_VALUE)
+                                                    .addComponent(LimparData)))))))
+                            .addComponent(lbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormularioGeralLayout.createSequentialGroup()
-                        .addGap(0, 30, Short.MAX_VALUE)
+                        .addGap(0, 27, Short.MAX_VALUE)
                         .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
-                    .addGroup(FormularioGeralLayout.createSequentialGroup()
-                        .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6)
-                            .addComponent(txDataNasc)
-                            .addComponent(jLabel1)
-                            .addComponent(txNºBilhetePassaport)
-                            .addComponent(txNomeCompleto)
-                            .addComponent(lbID)
-                            .addComponent(lbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(FormularioGeralLayout.createSequentialGroup()
-                                .addComponent(jLabelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnExcluirActionPerformed))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(FormularioGeralLayout.createSequentialGroup()
-                                    .addComponent(btnAtualizarActionPerformed)
-                                    .addGap(130, 130, 130)
-                                    .addComponent(btnAdicionarActionPerformed))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, FormularioGeralLayout.createSequentialGroup()
-                                    .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(FormularioGeralLayout.createSequentialGroup()
-                                            .addGap(27, 27, 27)
-                                            .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(FormularioGeralLayout.createSequentialGroup()
-                                            .addGap(58, 58, 58)
-                                            .addComponent(jRadioButton2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                                            .addComponent(jRadioButton3))))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1)
-                                    .addGroup(FormularioGeralLayout.createSequentialGroup()
-                                        .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(IDFilde, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                                            .addComponent(jTextFieldBilhere, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextFieldDataNasc, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextFieldTelefone, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField5)
-                                            .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(FormularioGeralLayout.createSequentialGroup()
-                                                .addGap(56, 56, 56)
-                                                .addComponent(IDLimparBN))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormularioGeralLayout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jButton6)
-                                                    .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING))))))))
-                            .addComponent(jLabel2)))))
+                        .addGap(13, 13, 13))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormularioGeralLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(144, 144, 144))
         );
         FormularioGeralLayout.setVerticalGroup(
             FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FormularioGeralLayout.createSequentialGroup()
                 .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(FormularioGeralLayout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(113, 113, 113))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormularioGeralLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(FormularioGeralLayout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(FormularioGeralLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
                         .addComponent(jLabel2)
-                        .addGap(52, 52, 52)
+                        .addGap(28, 28, 28)
                         .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(IDFilde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(IDLimparBN))
                         .addGap(20, 20, 20))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormularioGeralLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbID)
                         .addGap(18, 18, 18)))
-                .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txNomeCompleto)
-                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txNomeCompleto, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LimparNome)))
                 .addGap(18, 18, 18)
                 .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBilhere, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txNºBilhetePassaport)
-                    .addComponent(jButton2))
+                    .addComponent(LimparBilhete)
+                    .addComponent(jTextFieldBilhere, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txDataNasc)
                     .addComponent(jTextFieldDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(LimparDataNasci))
                 .addGap(26, 26, 26)
-                .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jButton4))
+                .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LimparTelefone)))
                 .addGap(18, 18, 18)
                 .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                    .addComponent(LimparEndereco))
                 .addGap(18, 18, 18)
                 .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -327,31 +344,26 @@ public class TelaCadastro extends javax.swing.JFrame {
                     .addGroup(FormularioGeralLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbSexo)
                             .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)
-                            .addComponent(lbSexo)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormularioGeralLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3)))
-                .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton3)
+                            .addComponent(jRadioButton2)))
                     .addGroup(FormularioGeralLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addGap(87, 87, 87)
                         .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelDate)
                                 .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3))))
-                    .addGroup(FormularioGeralLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton6)))
+                                .addComponent(jLabel3)
+                                .addComponent(LimparData)))))
                 .addGap(28, 28, 28)
                 .addGroup(FormularioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAtualizarActionPerformed)
-                    .addComponent(btnAdicionarActionPerformed)
-                    .addComponent(btnExcluirActionPerformed))
-                .addContainerGap(76, Short.MAX_VALUE))
+                    .addComponent(btnAtualizarActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdicionarActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluirActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout PainelGeralJPAINELLayout = new javax.swing.GroupLayout(PainelGeralJPAINEL);
@@ -359,15 +371,16 @@ public class TelaCadastro extends javax.swing.JFrame {
         PainelGeralJPAINELLayout.setHorizontalGroup(
             PainelGeralJPAINELLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PainelGeralJPAINELLayout.createSequentialGroup()
-                .addGap(113, 113, 113)
+                .addGap(76, 76, 76)
                 .addComponent(FormularioGeral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
         PainelGeralJPAINELLayout.setVerticalGroup(
             PainelGeralJPAINELLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PainelGeralJPAINELLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(FormularioGeral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -390,12 +403,12 @@ public class TelaCadastro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void LimparNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimparNomeActionPerformed
         jTextFieldNome.setText("");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_LimparNomeActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
+       jTextFieldBilhere.setText("");
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void btnAtualizarActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformedActionPerformed
@@ -589,18 +602,18 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.JPanel FormularioGeral;
     private javax.swing.JTextField IDFilde;
     private javax.swing.JButton IDLimparBN;
+    private javax.swing.JButton LimparBilhete;
+    private javax.swing.JButton LimparData;
+    private javax.swing.JButton LimparDataNasci;
+    private javax.swing.JButton LimparEndereco;
+    private javax.swing.JButton LimparNome;
+    private javax.swing.JButton LimparTelefone;
     private javax.swing.JLabel Logo;
     private javax.swing.JPanel PainelGeralJPAINEL;
     private javax.swing.JButton btnAdicionarActionPerformed;
     private javax.swing.JButton btnAtualizarActionPerformed;
     private javax.swing.JButton btnExcluirActionPerformed;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton9;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
