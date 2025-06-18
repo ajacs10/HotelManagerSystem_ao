@@ -98,7 +98,7 @@ public class TelaGeralCadatro extends javax.swing.JFrame {
         telaFuncionario.setVisible(true);
         this.dispose();
              
-    }                                            
+        }                                            
 
     private void bnHospedesActionPerformed(java.awt.event.ActionEvent evt) 
     {                                           

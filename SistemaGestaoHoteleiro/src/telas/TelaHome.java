@@ -601,18 +601,20 @@ public class TelaHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     // Método para o botão "Hospedes"
-    private void bnHospedagemActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        try {
-            // Assumindo que 'TelaCadastro' é a sua tela de cadastro de hóspedes/clientes.
-            // Se você tiver uma classe 'TelaHospedes.java' separada, use-a aqui.
+    private void bnHospedagemActionPerformed(java.awt.event.ActionEvent evt) 
+    {                                           
+         try 
+        {
             TelaCadastro telaHospedes = new TelaCadastro(); 
             telaHospedes.setVisible(true);
             this.dispose(); // Fecha a TelaHome
-        } catch (NoClassDefFoundError | Exception e) {
+        } 
+        catch (NoClassDefFoundError | Exception e) 
+        {
             logger.log(Level.SEVERE, "Erro ao abrir Tela de Hóspedes:", e);
             JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Hóspedes. Verifique se a classe 'TelaCadastro' (ou 'TelaHospedes') existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }                                          
+    }                                      
 
     // Método para o botão "Quartos"
     private void bnQuartosActionPerformed(java.awt.event.ActionEvent evt) {                                        
