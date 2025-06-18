@@ -106,6 +106,8 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -335,17 +337,6 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
                                 .addComponent(jButton1)
                                 .addGap(9, 9, 9)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
-                .addGap(0, 132, Short.MAX_VALUE)
-                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
-                        .addComponent(jScrollPaneTabelaFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 1007, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
-                        .addComponent(bnAtualizar)
-                        .addGap(137, 137, 137)
-                        .addComponent(bnAdicionar)
-                        .addGap(323, 323, 323))))
             .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
                 .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
@@ -356,7 +347,18 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
                     .addGroup(painelPrincipalFuncionariosLayout.createSequentialGroup()
                         .addGap(876, 876, 876)
                         .addComponent(bnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addComponent(bnAtualizar)
+                        .addGap(137, 137, 137)
+                        .addComponent(bnAdicionar)
+                        .addGap(323, 323, 323))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalFuncionariosLayout.createSequentialGroup()
+                        .addComponent(jScrollPaneTabelaFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 1123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16))))
         );
         painelPrincipalFuncionariosLayout.setVerticalGroup(
             painelPrincipalFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -442,9 +444,9 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
                     .addComponent(bnAtualizar)
                     .addComponent(bnExcluir)
                     .addComponent(bnAdicionar))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPaneTabelaFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPaneTabelaFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(painelPrincipalFuncionarios);
@@ -494,21 +496,22 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
 
   
         if (idFunc.isEmpty() || nomeCompleto.isEmpty() || numeroBilhete.isEmpty() || 
-        telefone.isEmpty() || cargoFuncao.isEmpty() || sexo.isEmpty()) {
+        telefone.isEmpty() || cargoFuncao.isEmpty() || sexo.isEmpty()) 
+        {
         JOptionPane.showMessageDialog(this, "Por favor, preencha os campos obrigatórios: ID, Nome, Bilhete, Telefone, Cargo e Sexo.", "Campos Obrigatórios", JOptionPane.WARNING_MESSAGE);
         return;
-    }
+        }
 
 
-    JOptionPane.showMessageDialog(this, "Funcionário '" + nomeCompleto + "' adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Funcionário '" + nomeCompleto + "' adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
-    DefaultTableModel model = (DefaultTableModel) jTableFuncionarios.getModel();
-    model.addRow(new Object[]{
-        idFunc, nomeCompleto, numeroBilhete, cargoFuncao, telefone, email, salario, dataContratacao
-    });
+        DefaultTableModel model = (DefaultTableModel) jTableFuncionarios.getModel();
+        model.addRow(new Object[]{
+            idFunc, nomeCompleto, numeroBilhete, cargoFuncao, telefone, email, salario, dataContratacao
+        });
     
-    limparTodosOsCamposFunc();
-}   
+        limparTodosOsCamposFunc();
+    }   
     private void rbFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFemininoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbFemininoActionPerformed
@@ -568,10 +571,8 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
         telaHome.setVisible(true);
         this.dispose();
     }
-    
-    
-    
-    public static void main(String args[]) {
+    public static void main(String args[]) 
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -647,7 +648,8 @@ public class TelaCadatroFuncionario extends javax.swing.JFrame
     private javax.swing.JTextField txtTelefoneFunc;
     // End of variables declaration//GEN-END:variables
 
-    private void limparTodosOsCamposFunc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void limparTodosOsCamposFunc()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

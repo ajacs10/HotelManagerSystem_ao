@@ -53,8 +53,8 @@ public class TelaCadastro extends javax.swing.JFrame {
         jTextFieldTelefone.setText("");
         jTextField5.setText(""); 
         jTextField6.setText("");
-        jFormattedTextField1.setText("");
-        jFormattedTextField2.setText("");
+        //jFormattedTextField1.setText("");
+        //jFormattedTextField2.setText("");
         //buttonGroup1.clearSelection();
     }
     
@@ -243,6 +243,11 @@ public class TelaCadastro extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1ActionPerformed(evt);
+            }
+        });
 
         try {
             jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
@@ -589,11 +594,13 @@ public class TelaCadastro extends javax.swing.JFrame {
         try 
         {
             int num = Integer.parseInt(numHospedes);
-            if (num <= 0) {
+            if (num <= 0) 
+            {
                 JOptionPane.showMessageDialog(this, "Número de Hóspedes deve ser um valor positivo.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-        } catch (NumberFormatException e) 
+        } 
+        catch (NumberFormatException e) 
         {
             JOptionPane.showMessageDialog(this, "Número de Hóspedes deve ser um número válido.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
             return;
@@ -662,6 +669,10 @@ public class TelaCadastro extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
       clearFields();
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
 
 
     /**
