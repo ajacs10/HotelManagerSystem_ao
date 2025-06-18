@@ -4,14 +4,6 @@
  */
 package telas;
 
-/**
- *
- * @author mcdebug
- */
-class TelaQuartos {
-
-    void setVisible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
+public class TelaQuartos {
+    // ... todo o código da sua classe TelaQuartos ...
 }

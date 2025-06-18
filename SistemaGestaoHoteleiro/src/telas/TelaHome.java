@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package telas;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane; 
-/**
- *
- * @author mcdebug
- */
+
 public class TelaHome extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaHome.class.getName());
@@ -600,7 +594,6 @@ public class TelaHome extends javax.swing.JFrame {
     this.dispose();
     }//GEN-LAST:event_btnCadastroActionPerformed
 
-    // Método para o botão "Hospedes"
     private void bnHospedagemActionPerformed(java.awt.event.ActionEvent evt) 
     {                                           
          try 
@@ -619,7 +612,6 @@ public class TelaHome extends javax.swing.JFrame {
     // Método para o botão "Quartos"
     private void bnQuartosActionPerformed(java.awt.event.ActionEvent evt) {                                        
         try {
-            // Você precisará criar a classe 'TelaQuartos.java' no seu pacote 'telas'.
             TelaQuartos telaQuartos = new TelaQuartos();
             telaQuartos.setVisible(true);
             this.dispose(); // Fecha a TelaHome
