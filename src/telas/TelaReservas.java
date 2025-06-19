@@ -271,45 +271,60 @@ public class TelaReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeHospedeActionPerformed
 
     private void btnAdicionarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarReservaActionPerformed
-     
-    if (txtNomeHospede.getText().trim().isEmpty()) { // Usamos getText().trim().isEmpty() para verificar se está realmente vazio
+     if (txtNomeHospede.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(this,
-                                      "Por favor, cadastre um hóspede, o campo de nome não está preenchido.",
-                                      "Nome do Hóspede Ausente",
+                                      "Por favor, cadastre um hóspede. O campo 'Nome do Hóspede' não está preenchido.",
+                                      "Campo Requerido: Nome do Hóspede",
                                       JOptionPane.WARNING_MESSAGE);
-        txtNomeHospede.requestFocus(); // Opcional: focar no campo
-        return; // Retorna para impedir a continuação da reserva
+        txtNomeHospede.requestFocus();
+        return; // Sai do método se houver erro
     }
 
-    // 2. Validação para o Número de Quartos (existente)
+    // 2. Validação: Número de Quartos
+    // Reutilizando sua função validarNumeroQuartos que já tem sua própria mensagem e foco
     if (!validarNumeroQuartos(txtNumeroQuartos)) {
-        return; // validarNumeroQuartos já exibe sua própria mensagem
+        return; // Sai do método se houver erro (a função já exibiu a mensagem e focou)
     }
 
-    // 3. Validação das Datas (existente)
+    // 3. Validação: Data de Check-in
     Date checkInDate = parseAndValidateDate(txtDataCheckIn, "Data de Check-in");
-    if (checkInDate == null) return;
-
-    Date checkOutDate = parseAndValidateDate(txtDataCheckOut, "Data de Check-out");
-    if (checkOutDate == null) return;
-
-    if (checkOutDate.before(checkInDate) || checkOutDate.equals(checkInDate)) {
-        JOptionPane.showMessageDialog(this, "A Data de Check-out deve ser posterior à Data de Check-in.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
-        txtDataCheckOut.requestFocus();
-        return;
+    if (checkInDate == null) {
+        // A função parseAndValidateDate já exibe a mensagem e foca no campo
+        return; // Sai do método se houver erro
     }
 
+    // 4. Validação: Data de Check-out
+    Date checkOutDate = parseAndValidateDate(txtDataCheckOut, "Data de Check-out");
+    if (checkOutDate == null) {
+        // A função parseAndValidateDate já exibe a mensagem e foca no campo
+        return; // Sai do método se houver erro
+    }
+
+    // 5. Validação: Check-out deve ser posterior ao Check-in
+    if (checkOutDate.before(checkInDate) || checkOutDate.equals(checkInDate)) {
+        JOptionPane.showMessageDialog(this,
+                                      "A 'Data de Check-out' deve ser posterior à 'Data de Check-in'.",
+                                      "Erro de Validação de Datas",
+                                      JOptionPane.WARNING_MESSAGE);
+        txtDataCheckOut.requestFocus();
+        return; // Sai do método se houver erro
+    }
+
+    // 6. Validação: Check-in não pode ser uma data passada
     Date hoje = new Date();
     hoje = resetTime(hoje);
     Date checkInDateOnly = resetTime(checkInDate);
 
     if (checkInDateOnly.before(hoje)) {
-        JOptionPane.showMessageDialog(this, "A Data de Check-in não pode ser uma data passada.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+                                      "A 'Data de Check-in' não pode ser uma data passada.",
+                                      "Erro de Validação de Data",
+                                      JOptionPane.WARNING_MESSAGE);
         txtDataCheckIn.requestFocus();
-        return;
+        return; // Sai do método se houver erro
     }
 
-    // 4. Validação da Disponibilidade de Quartos (existente)
+    // 7. Validação: Disponibilidade de Quartos
     int numQuartosDesejados = Integer.parseInt(txtNumeroQuartos.getText().trim());
     int quartosOcupadosNoPeriodo = getQuartosOcupadosParaPeriodo(checkInDate, checkOutDate);
     int quartosDisponiveis = CAPACIDADE_TOTAL_QUARTOS_HOTEL - quartosOcupadosNoPeriodo;
@@ -319,15 +334,18 @@ public class TelaReservas extends javax.swing.JFrame {
             "Não há quartos suficientes disponíveis para o período e quantidade solicitados.\n" +
             "Quartos disponíveis: " + quartosDisponiveis + "\n" +
             "Capacidade total: " + CAPACIDADE_TOTAL_QUARTOS_HOTEL,
-            "Hotel Cheio", JOptionPane.WARNING_MESSAGE);
+            "Hotel Cheio", // Título da mensagem
+            JOptionPane.WARNING_MESSAGE);
         txtNumeroQuartos.requestFocus();
-        return;
+        return; // Sai do método se houver erro
     }
 
-    // Se todas as validações passarem
-    JOptionPane.showMessageDialog(this, "Reserva adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    // Se todas as validações passarem com sucesso
+    JOptionPane.showMessageDialog(this,
+                                  "Reserva adicionada com sucesso!",
+                                  "Sucesso",
+                                  JOptionPane.INFORMATION_MESSAGE);
     limparCamposReserva();
-  
     }//GEN-LAST:event_btnAdicionarReservaActionPerformed
 
     private void bnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnVoltarActionPerformed
