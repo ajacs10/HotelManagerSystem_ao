@@ -29,58 +29,44 @@ public class TelaReservas extends javax.swing.JFrame {
      * Creates new form TelaReservas
      */
     private static final int CAPACIDADE_TOTAL_QUARTOS_HOTEL = 50;
-    public TelaReservas() 
-    {
-        initComponents();
-         setLocationRelativeTo(null);
-     // --- INÍCIO DO CÓDIGO CORRIGIDO PARA O FUNDO ---
-
-        // Crie o painel de fundo
-        JPanelComFundo painelDeFundoDoJFrame = new JPanelComFundo("/Imagem/fundo.png");
-        painelDeFundoDoJFrame.setLayout(new java.awt.BorderLayout()); // Definindo um layout para o painel de fundo
-
-        // Obtenha o content pane atual (onde jPanel1 foi adicionado pelo initComponents)
-        java.awt.Container originalContentPane = getContentPane();
-
-        // Remova jPanel1 do content pane original
-        // É importante que jPanel1 seja transparente para que o fundo seja visível
-        jPanel1.setOpaque(false); // ISSO É FUNDAMENTAL! Tornar o jPanel1 transparente
-
-        // Remova todos os componentes do content pane original antes de substituí-lo
-        // Isso é mais seguro para evitar artefatos visuais se houver outros componentes.
-        originalContentPane.removeAll();
-
-        // Adicione o jPanel1 (que contém os campos do formulário) ao seu painel de fundo personalizado
-        // O BorderLayout.CENTER fará com que jPanel1 preencha a maior parte do painel de fundo
-        painelDeFundoDoJFrame.add(jPanel1, java.awt.BorderLayout.CENTER);
-
-        // Defina o novo painel de fundo como o content pane do JFrame
-        setContentPane(painelDeFundoDoJFrame);
-
-        // Redesenhe a janela para aplicar as mudanças de layout
-        revalidate();
-        repaint();
-
-        // --- FIM DO CÓDIGO CORRIGIDO PARA O FUNDO ---
-
-        // O restante do seu código do construtor permanece igual
-        // (configuração das máscaras, etc.)
-        try {
+    public TelaReservas()
+{
+    initComponents();
+    setLocationRelativeTo(null);
+    try {
             MaskFormatter dateMask = new MaskFormatter("##/##/####");
             dateMask.setPlaceholderCharacter('_');
             txtDataCheckIn.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(dateMask)); // Definir factory aqui
+            txtDataCheckIn.setColumns(10); // Ajuste de largura para a máscara
             txtDataCheckOut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(dateMask)); // Definir factory aqui
-        } catch (ParseException ex) {
-            logger.log(java.util.logging.Level.SEVERE, "Erro ao configurar máscaras de data: ", ex);
-            JOptionPane.showMessageDialog(this, "Erro ao configurar máscaras de data: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+            txtDataCheckOut.setColumns(10); // Ajuste de largura para a máscara
+    } 
+    catch (ParseException ex) 
+    {
+        logger.log(java.util.logging.Level.SEVERE, "Erro ao configurar máscaras de data: ", ex);
+        JOptionPane.showMessageDialog(this, "Erro ao configurar máscaras de data: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    }
 
-        // A linha abaixo já é adicionada pelo NetBeans no initComponents se você usou o design view.
-        // Se ela existir duplicada, pode causar comportamentos inesperados.
-        // Se você não vê `btnAdicionarReserva.addActionListener` em initComponents(), mantenha esta linha.
-        // Se já foi gerada, remova esta. Por segurança, vamos mantê-la como está no seu código.
-        btnAdicionarReserva.addActionListener(this::btnAdicionarReservaActionPerformed);   
-    }      
+}
+    public TelaReservas(String nomeHospede) 
+    {
+        this(); 
+
+    if (nomeHospede == null || nomeHospede.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                                      "Erro: Não foi possível carregar o nome do hóspede. Por favor, cadastre um hóspede primeiro.",
+                                      "Nome do Hóspede Ausente",
+                                      JOptionPane.ERROR_MESSAGE);
+        txtNomeHospede.setText(""); 
+        txtNomeHospede.setEditable(false); 
+        btnAdicionarReserva.setEnabled(false); 
+        
+    } else {
+        txtNomeHospede.setText(nomeHospede);
+        txtNomeHospede.setEditable(false);
+        btnAdicionarReserva.setEnabled(true); 
+    }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,49 +77,101 @@ public class TelaReservas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        btnAdicionarReserva = new javax.swing.JButton();
-        lbtxtNumeroQuartos = new javax.swing.JLabel();
-        lbDataCheckOut = new javax.swing.JLabel();
-        lbDatadeCheckin = new javax.swing.JLabel();
-        txtNomeHospede = new javax.swing.JTextField();
+        panelConteudoPrincipal = new javax.swing.JPanel();
+        panelCabecalho = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        bnVoltar = new javax.swing.JButton();
+        panelSecoesPrincipais = new javax.swing.JPanel();
+        panelFormFields = new javax.swing.JPanel();
         lbNomedoHóspede = new javax.swing.JLabel();
+        txtNomeHospede = new javax.swing.JTextField();
+        lbDatadeCheckin = new javax.swing.JLabel();
         txtDataCheckIn = new javax.swing.JFormattedTextField();
+        lbDataCheckOut = new javax.swing.JLabel();
         txtDataCheckOut = new javax.swing.JFormattedTextField();
+        lbtxtNumeroQuartos = new javax.swing.JLabel();
         txtNumeroQuartos = new javax.swing.JFormattedTextField();
+        btnAdicionarReserva = new javax.swing.JButton();
+        panelModifyReservations = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.BorderLayout(12, 0));
 
-        btnAdicionarReserva.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        btnAdicionarReserva.setText("Adicionar Reserva");
-        btnAdicionarReserva.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 15, 10, 15));
-        btnAdicionarReserva.addActionListener(new java.awt.event.ActionListener() {
+        panelConteudoPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        panelConteudoPrincipal.setLayout(new java.awt.BorderLayout());
+
+        panelCabecalho.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Hotel Reservas");
+        jLabel1.setAlignmentX(0.5F);
+
+        bnVoltar.setText("Voltar");
+        bnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarReservaActionPerformed(evt);
+                bnVoltarActionPerformed(evt);
             }
         });
 
-        lbtxtNumeroQuartos.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        lbtxtNumeroQuartos.setForeground(new java.awt.Color(255, 255, 255));
-        lbtxtNumeroQuartos.setText("Número de Quartos:");
+        javax.swing.GroupLayout panelCabecalhoLayout = new javax.swing.GroupLayout(panelCabecalho);
+        panelCabecalho.setLayout(panelCabecalhoLayout);
+        panelCabecalhoLayout.setHorizontalGroup(
+            panelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCabecalhoLayout.createSequentialGroup()
+                .addGap(319, 319, 319)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
+                .addComponent(bnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+        panelCabecalhoLayout.setVerticalGroup(
+            panelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCabecalhoLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(panelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(bnVoltar))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
 
-        lbDataCheckOut.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        lbDataCheckOut.setForeground(new java.awt.Color(255, 255, 255));
-        lbDataCheckOut.setText("Data de Check-out:");
+        panelConteudoPrincipal.add(panelCabecalho, java.awt.BorderLayout.NORTH);
 
-        lbDatadeCheckin.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        lbDatadeCheckin.setForeground(new java.awt.Color(255, 255, 255));
-        lbDatadeCheckin.setText("Data de Check-in");
+        panelSecoesPrincipais.setBackground(new java.awt.Color(255, 255, 255));
+        panelSecoesPrincipais.setBorder(javax.swing.BorderFactory.createEmptyBorder(9, 5, 8, 10));
+        panelSecoesPrincipais.setMaximumSize(new java.awt.Dimension(32767, 200));
+        panelSecoesPrincipais.setPreferredSize(new java.awt.Dimension(200, 50));
 
+        panelFormFields.setBackground(new java.awt.Color(204, 204, 204));
+        panelFormFields.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 8, 8, 10));
+        panelFormFields.setForeground(new java.awt.Color(255, 255, 255));
+        panelFormFields.setLayout(new java.awt.GridLayout(0, 1, 1, 1));
+
+        lbNomedoHóspede.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        lbNomedoHóspede.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbNomedoHóspede.setText("Nome do Hóspede");
+        lbNomedoHóspede.setPreferredSize(new java.awt.Dimension(120, 20));
+        panelFormFields.add(lbNomedoHóspede);
+
+        txtNomeHospede.setEditable(false);
+        txtNomeHospede.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 9, 10));
+        txtNomeHospede.setMinimumSize(new java.awt.Dimension(20, 3));
+        txtNomeHospede.setPreferredSize(new java.awt.Dimension(120, 20));
         txtNomeHospede.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeHospedeActionPerformed(evt);
             }
         });
+        panelFormFields.add(txtNomeHospede);
 
-        lbNomedoHóspede.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        lbNomedoHóspede.setForeground(new java.awt.Color(255, 255, 255));
-        lbNomedoHóspede.setText("Nome do Hóspede:");
+        lbDatadeCheckin.setBackground(new java.awt.Color(0, 0, 0));
+        lbDatadeCheckin.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        lbDatadeCheckin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbDatadeCheckin.setText("Data de Check-in");
+        lbDatadeCheckin.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 9, 10));
+        panelFormFields.add(lbDatadeCheckin);
 
         try {
             txtDataCheckIn.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/ ##/####")));
@@ -146,6 +184,13 @@ public class TelaReservas extends javax.swing.JFrame {
                 txtDataCheckInActionPerformed(evt);
             }
         });
+        panelFormFields.add(txtDataCheckIn);
+
+        lbDataCheckOut.setBackground(new java.awt.Color(0, 0, 0));
+        lbDataCheckOut.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        lbDataCheckOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbDataCheckOut.setText("Data de Check-out:");
+        panelFormFields.add(lbDataCheckOut);
 
         try {
             txtDataCheckOut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/ ## / ####")));
@@ -159,142 +204,138 @@ public class TelaReservas extends javax.swing.JFrame {
                 txtDataCheckOutActionPerformed(evt);
             }
         });
+        panelFormFields.add(txtDataCheckOut);
 
-        txtNumeroQuartos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("1"))));
+        lbtxtNumeroQuartos.setBackground(new java.awt.Color(0, 0, 0));
+        lbtxtNumeroQuartos.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        lbtxtNumeroQuartos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbtxtNumeroQuartos.setText("Número de Quartos:");
+        panelFormFields.add(lbtxtNumeroQuartos);
+
+        txtNumeroQuartos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
         txtNumeroQuartos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        panelFormFields.add(txtNumeroQuartos);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(251, 251, 251)
-                .addComponent(btnAdicionarReserva)
-                .addContainerGap(308, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNomeHospede, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtDataCheckIn)
-                        .addComponent(txtDataCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                        .addComponent(txtNumeroQuartos)))
-                .addGap(154, 154, 154))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(156, 156, 156)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lbNomedoHóspede)
-                        .addComponent(lbDatadeCheckin)
-                        .addComponent(lbDataCheckOut)
-                        .addComponent(lbtxtNumeroQuartos))
-                    .addContainerGap(401, Short.MAX_VALUE)))
+        btnAdicionarReserva.setBackground(new java.awt.Color(102, 102, 102));
+        btnAdicionarReserva.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        btnAdicionarReserva.setText("Adicionar Reserva");
+        btnAdicionarReserva.setAlignmentX(0.5F);
+        btnAdicionarReserva.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 15, 10, 15));
+        btnAdicionarReserva.setMaximumSize(new java.awt.Dimension(120, 20));
+        btnAdicionarReserva.setMinimumSize(new java.awt.Dimension(120, 20));
+        btnAdicionarReserva.setPreferredSize(new java.awt.Dimension(120, 20));
+        btnAdicionarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarReservaActionPerformed(evt);
+            }
+        });
+        panelFormFields.add(btnAdicionarReserva);
+
+        javax.swing.GroupLayout panelSecoesPrincipaisLayout = new javax.swing.GroupLayout(panelSecoesPrincipais);
+        panelSecoesPrincipais.setLayout(panelSecoesPrincipaisLayout);
+        panelSecoesPrincipaisLayout.setHorizontalGroup(
+            panelSecoesPrincipaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelFormFields, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        panelSecoesPrincipaisLayout.setVerticalGroup(
+            panelSecoesPrincipaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSecoesPrincipaisLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtNomeHospede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(txtDataCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtDataCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNumeroQuartos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(btnAdicionarReserva)
-                .addGap(26, 26, 26))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(8, 8, 8)
-                    .addComponent(lbNomedoHóspede)
-                    .addGap(18, 18, 18)
-                    .addComponent(lbDatadeCheckin)
-                    .addGap(27, 27, 27)
-                    .addComponent(lbDataCheckOut)
-                    .addGap(18, 18, 18)
-                    .addComponent(lbtxtNumeroQuartos)
-                    .addContainerGap(86, Short.MAX_VALUE)))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelFormFields, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(678, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-        );
+
+        panelConteudoPrincipal.add(panelSecoesPrincipais, java.awt.BorderLayout.LINE_START);
+
+        panelModifyReservations.setBackground(new java.awt.Color(240, 240, 240));
+        panelModifyReservations.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelModifyReservations.setPreferredSize(new java.awt.Dimension(400, 300));
+        panelModifyReservations.setLayout(new java.awt.BorderLayout());
+        panelConteudoPrincipal.add(panelModifyReservations, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(panelConteudoPrincipal, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtNomeHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeHospedeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeHospedeActionPerformed
-
-    private void txtDataCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataCheckInActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataCheckInActionPerformed
 
     private void txtDataCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataCheckOutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataCheckOutActionPerformed
 
+    private void txtDataCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataCheckInActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataCheckInActionPerformed
+
+    private void txtNomeHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeHospedeActionPerformed
+
+    }//GEN-LAST:event_txtNomeHospedeActionPerformed
+
     private void btnAdicionarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarReservaActionPerformed
-        if (!validarCampoVazio(txtNomeHospede, "Nome do Hóspede") ||
-            !validarNumeroQuartos(txtNumeroQuartos))
-        {
-            return;
-        }
+     
+    if (txtNomeHospede.getText().trim().isEmpty()) { // Usamos getText().trim().isEmpty() para verificar se está realmente vazio
+        JOptionPane.showMessageDialog(this,
+                                      "Por favor, cadastre um hóspede, o campo de nome não está preenchido.",
+                                      "Nome do Hóspede Ausente",
+                                      JOptionPane.WARNING_MESSAGE);
+        txtNomeHospede.requestFocus(); // Opcional: focar no campo
+        return; // Retorna para impedir a continuação da reserva
+    }
 
-        Date checkInDate = parseAndValidateDate(txtDataCheckIn, "Data de Check-in");
-        if (checkInDate == null) return;
+    // 2. Validação para o Número de Quartos (existente)
+    if (!validarNumeroQuartos(txtNumeroQuartos)) {
+        return; // validarNumeroQuartos já exibe sua própria mensagem
+    }
 
-        Date checkOutDate = parseAndValidateDate(txtDataCheckOut, "Data de Check-out");
-        if (checkOutDate == null) return;
+    // 3. Validação das Datas (existente)
+    Date checkInDate = parseAndValidateDate(txtDataCheckIn, "Data de Check-in");
+    if (checkInDate == null) return;
 
-        if (checkOutDate.before(checkInDate) || checkOutDate.equals(checkInDate)) {
-            JOptionPane.showMessageDialog(this, "A Data de Check-out deve ser posterior à Data de Check-in.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
-            txtDataCheckOut.requestFocus();
-            return;
-        }
+    Date checkOutDate = parseAndValidateDate(txtDataCheckOut, "Data de Check-out");
+    if (checkOutDate == null) return;
 
-        Date hoje = new Date();
-        hoje = resetTime(hoje);
-        Date checkInDateOnly = resetTime(checkInDate);
+    if (checkOutDate.before(checkInDate) || checkOutDate.equals(checkInDate)) {
+        JOptionPane.showMessageDialog(this, "A Data de Check-out deve ser posterior à Data de Check-in.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+        txtDataCheckOut.requestFocus();
+        return;
+    }
 
-        if (checkInDateOnly.before(hoje)) {
-            JOptionPane.showMessageDialog(this, "A Data de Check-in não pode ser uma data passada.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
-            txtDataCheckIn.requestFocus();
-            return;
-        }
+    Date hoje = new Date();
+    hoje = resetTime(hoje);
+    Date checkInDateOnly = resetTime(checkInDate);
 
-        int numQuartosDesejados = Integer.parseInt(txtNumeroQuartos.getText().trim());
-        int quartosOcupadosNoPeriodo = getQuartosOcupadosParaPeriodo(checkInDate, checkOutDate);
-        int quartosDisponiveis = CAPACIDADE_TOTAL_QUARTOS_HOTEL - quartosOcupadosNoPeriodo;
+    if (checkInDateOnly.before(hoje)) {
+        JOptionPane.showMessageDialog(this, "A Data de Check-in não pode ser uma data passada.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+        txtDataCheckIn.requestFocus();
+        return;
+    }
 
-        if (numQuartosDesejados > quartosDisponiveis) {
-            JOptionPane.showMessageDialog(this,
-                    "Não há quartos suficientes disponíveis para o período e quantidade solicitados.\n" +
-                    "Quartos disponíveis: " + quartosDisponiveis + "\n" +
-                    "Capacidade total: " + CAPACIDADE_TOTAL_QUARTOS_HOTEL,
-                    "Hotel Cheio", JOptionPane.WARNING_MESSAGE);
-            txtNumeroQuartos.requestFocus();
-            return;
-        }
+    // 4. Validação da Disponibilidade de Quartos (existente)
+    int numQuartosDesejados = Integer.parseInt(txtNumeroQuartos.getText().trim());
+    int quartosOcupadosNoPeriodo = getQuartosOcupadosParaPeriodo(checkInDate, checkOutDate);
+    int quartosDisponiveis = CAPACIDADE_TOTAL_QUARTOS_HOTEL - quartosOcupadosNoPeriodo;
 
-        JOptionPane.showMessageDialog(this, "Reserva adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        limparCamposReserva();
+    if (numQuartosDesejados > quartosDisponiveis) {
+        JOptionPane.showMessageDialog(this,
+            "Não há quartos suficientes disponíveis para o período e quantidade solicitados.\n" +
+            "Quartos disponíveis: " + quartosDisponiveis + "\n" +
+            "Capacidade total: " + CAPACIDADE_TOTAL_QUARTOS_HOTEL,
+            "Hotel Cheio", JOptionPane.WARNING_MESSAGE);
+        txtNumeroQuartos.requestFocus();
+        return;
+    }
+
+    // Se todas as validações passarem
+    JOptionPane.showMessageDialog(this, "Reserva adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    limparCamposReserva();
+  
     }//GEN-LAST:event_btnAdicionarReservaActionPerformed
+
+    private void bnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnVoltarActionPerformed
+       
+        TelaHome telaHome = new TelaHome();
+        telaHome.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_bnVoltarActionPerformed
     private boolean validarNumeroQuartos(javax.swing.JTextField textField) {
         String numQuartosStr = textField.getText().trim();
         if (!validarCampoVazio(textField, "Número de Quartos")) {
@@ -363,8 +404,8 @@ public class TelaReservas extends javax.swing.JFrame {
         cal.set(java.util.Calendar.MILLISECOND, 0);
         return cal.getTime();
     }
-    private int getQuartosOcupadosParaPeriodo(Date checkIn, Date checkOut) {
-        // Lógica de simulação - SUBSTITUA PELA LÓGICA DE BANCO DE DADOS
+    private int getQuartosOcupadosParaPeriodo(Date checkIn, Date checkOut)
+    {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date dataExemploInicio = sdf.parse("20/06/2025");
@@ -372,7 +413,9 @@ public class TelaReservas extends javax.swing.JFrame {
 
             if (checkIn.before(dataExemploFim) && checkOut.after(dataExemploInicio)) {
                 return 15;
-            } else {
+            } 
+            else
+            {
                 return 5;
             }
         } catch (ParseException e) {
@@ -383,7 +426,6 @@ public class TelaReservas extends javax.swing.JFrame {
 
     private void limparCamposReserva()
     {
-        txtNomeHospede.setText("");
         txtDataCheckIn.setText("");
         txtDataCheckOut.setText("");
         txtNumeroQuartos.setText("");
@@ -417,7 +459,8 @@ public class TelaReservas extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() 
+        {
             public void run() {
                 new TelaReservas().setVisible(true);
             }
@@ -425,15 +468,21 @@ public class TelaReservas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionarReserva;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lbDataCheckOut;
-    private javax.swing.JLabel lbDatadeCheckin;
-    private javax.swing.JLabel lbNomedoHóspede;
-    private javax.swing.JLabel lbtxtNumeroQuartos;
-    private javax.swing.JFormattedTextField txtDataCheckIn;
-    private javax.swing.JFormattedTextField txtDataCheckOut;
-    private javax.swing.JTextField txtNomeHospede;
-    private javax.swing.JFormattedTextField txtNumeroQuartos;
+    protected javax.swing.JButton bnVoltar;
+    protected javax.swing.JButton btnAdicionarReserva;
+    protected javax.swing.JLabel jLabel1;
+    protected javax.swing.JLabel lbDataCheckOut;
+    protected javax.swing.JLabel lbDatadeCheckin;
+    protected javax.swing.JLabel lbNomedoHóspede;
+    protected javax.swing.JLabel lbtxtNumeroQuartos;
+    protected javax.swing.JPanel panelCabecalho;
+    protected javax.swing.JPanel panelConteudoPrincipal;
+    protected javax.swing.JPanel panelFormFields;
+    protected javax.swing.JPanel panelModifyReservations;
+    protected javax.swing.JPanel panelSecoesPrincipais;
+    protected javax.swing.JFormattedTextField txtDataCheckIn;
+    protected javax.swing.JFormattedTextField txtDataCheckOut;
+    protected javax.swing.JTextField txtNomeHospede;
+    protected javax.swing.JFormattedTextField txtNumeroQuartos;
     // End of variables declaration//GEN-END:variables
 }
