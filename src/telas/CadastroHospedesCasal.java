@@ -8,6 +8,7 @@ package telas;
  *
  * @author mcdebug
  */
+
 public class CadastroHospedesCasal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadastroHospedesCasal.class.getName());

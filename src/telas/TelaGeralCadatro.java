@@ -89,7 +89,7 @@ public class TelaGeralCadatro extends javax.swing.JFrame
     private void bnHospedesActionPerformed(java.awt.event.ActionEvent evt) 
     {                                           
       
-        TelaCadastro telaHospedes = new TelaCadastro();
+        TelaHospede telaHospedes = new TelaHospede();
         telaHospedes.setVisible(true);
         this.dispose(); 
         

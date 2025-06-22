@@ -4,23 +4,181 @@
  */
 package telas;
 
+
+import util.ConexaoMySQL; // Importe a sua classe de conexão
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel; // Para manipular a JTable
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane; 
+import javax.swing.JOptionPane; // Importar para usar JOptionPane
+
 /**
  *
  * @author mcdebug
  */
 public class TelaHome extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaHome.class.getName());
+   private static final Logger logger = Logger.getLogger(TelaHome.class.getName());
+    private String usuarioLogadoNome; // Store logged-in user's name
+    private String usuarioLogadoPapel; // Store logged-in user's role
 
     /**
-     * Creates new form TelaAdmin
+     * Default constructor for preview or fallback.
      */
     public TelaHome() {
         initComponents();
+        setLocationRelativeTo(null);
+        carregarReservasRecentes();
+        jLabeUserName.setText("Usuário: Não Logado");
+        carregarContagemHospedes();
+        carregarContagemQuartos();
+        carregarContagemReservas();
+        carregarContagemFuncionarios();
     }
+
+    /**
+     * Constructor with username.
+     * @param username The logged-in user's name.
+     */
+    public TelaHome(String username) {
+        this.usuarioLogadoNome = username;
+        this.usuarioLogadoPapel = ""; // Default empty role
+        initComponents();
+        setLocationRelativeTo(null);
+        jLabeUserName.setText(this.usuarioLogadoNome);
+        carregarReservasRecentes();
+        carregarContagemHospedes();
+        carregarContagemQuartos();
+        carregarContagemReservas();
+        carregarContagemFuncionarios();
+    }
+
+    /**
+     * Constructor with username and role.
+     * @param username The logged-in user's name.
+     * @param papel The logged-in user's role.
+     */
+    public TelaHome(String username, String papel) {
+        this.usuarioLogadoNome = username;
+        this.usuarioLogadoPapel = papel;
+        initComponents();
+        setLocationRelativeTo(null);
+        jLabeUserName.setText("Usuário: " + this.usuarioLogadoNome + (papel.isEmpty() ? "" : " (" + papel + ")"));
+        carregarReservasRecentes();
+        carregarContagemHospedes();
+        carregarContagemQuartos();
+        carregarContagemReservas();
+        carregarContagemFuncionarios();
+    }
+
+    private void carregarContagemHospedes() {
+        try (Connection conn = ConexaoMySQL.getConexao();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(*) AS total FROM hospedes");
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                jLabel17.setText(String.valueOf(rs.getInt("total")));
+            } else {
+                jLabel17.setText("0");
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Erro ao carregar contagem de hóspedes!", e);
+            JOptionPane.showMessageDialog(this, "Erro ao carregar contagem de hóspedes: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            jLabel17.setText("Erro");
+        }
+    }
+
+    private void carregarContagemQuartos() {
+        try (Connection conn = ConexaoMySQL.getConexao();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(*) AS total FROM quartos");
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                jLabel5.setText(String.valueOf(rs.getInt("total")));
+            } else {
+                jLabel5.setText("0");
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Erro ao carregar contagem de quartos!", e);
+            JOptionPane.showMessageDialog(this, "Erro ao carregar contagem de quartos: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            jLabel5.setText("Erro");
+        }
+    }
+
+    private void carregarContagemReservas() {
+        try (Connection conn = ConexaoMySQL.getConexao();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(*) AS total FROM reservas");
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                jLabel10.setText(String.valueOf(rs.getInt("total")));
+            } else {
+                jLabel10.setText("0");
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Erro ao carregar contagem de reservas!", e);
+            JOptionPane.showMessageDialog(this, "Erro ao carregar contagem de reservas: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            jLabel10.setText("Erro");
+        }
+    }
+
+    private void carregarContagemFuncionarios() {
+        try (Connection conn = ConexaoMySQL.getConexao();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(*) AS total FROM funcionarios");
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                jLabel13.setText(String.valueOf(rs.getInt("total")));
+            } else {
+                jLabel13.setText("0");
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Erro ao carregar contagem de funcionários!", e);
+            JOptionPane.showMessageDialog(this, "Erro ao carregar contagem de funcionários: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            jLabel13.setText("Erro");
+        }
+    }
+
+    private void carregarReservasRecentes() {
+        try (Connection conn = ConexaoMySQL.getConexao();
+             PreparedStatement pstmt = conn.prepareStatement(
+                 "SELECT CONCAT(H.primeiro_nome, ' ', H.ultimo_nome) AS nome_hospede_completo, " +
+                 "Q.numero_quarto, R.data_check_in, R.data_check_out " +
+                 "FROM reservas AS R " +
+                 "JOIN hospedes AS H ON R.id_hospede_principal = H.id_hospede " +
+                 "JOIN quartos AS Q ON R.id_quarto = Q.id_quarto " +
+                 "ORDER BY R.data_check_in DESC LIMIT 10");
+             ResultSet rs = pstmt.executeQuery()) {
+
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("nome_hospede_completo"),
+                    rs.getString("numero_quarto"),
+                    rs.getString("data_check_in"),
+                    rs.getString("data_check_out")
+                });
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Erro ao carregar reservas recentes!", e);
+            JOptionPane.showMessageDialog(this, "Erro ao carregar reservas: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    // ... outros métodos ...
+
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        try {
+            // Agora, o botão "Cadastro" da TelaHome abrirá a sua TelaGeralCadatro
+            TelaGeralCadatro telaGeralCadastro = new TelaGeralCadatro();
+            telaGeralCadastro.setVisible(true);
+            this.dispose(); // Fecha a TelaHome (opcional, dependendo do seu fluxo de navegação)
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "Erro ao abrir a Tela Geral de Cadastro.", ex);
+            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de opções de cadastro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    } 
+
+// ... main method ou final da classe
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,12 +194,13 @@ public class TelaHome extends javax.swing.JFrame {
         ConteinerTitulo = new javax.swing.JPanel();
         Titulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabeUserName = new javax.swing.JLabel();
         ConteinerBaixo = new javax.swing.JPanel();
         Caixinha1Hosped = new javax.swing.JPanel();
-        painelConteudoHospedes = new javax.swing.JPanel();
-        iconHospedagem = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         Caixinha4Quarto = new javax.swing.JPanel();
         painelConteudoQuartos = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -105,6 +264,11 @@ public class TelaHome extends javax.swing.JFrame {
         jLabel2.setAlignmentX(0.5F);
         ConteinerTitulo.add(jLabel2);
 
+        jLabeUserName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabeUserName.setText("..............");
+        jLabeUserName.setAlignmentX(0.5F);
+        ConteinerTitulo.add(jLabeUserName);
+
         ConteinerPart1.add(ConteinerTitulo);
 
         ConteinerBaixo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -119,32 +283,48 @@ public class TelaHome extends javax.swing.JFrame {
         Caixinha1Hosped.setAlignmentY(10.0F);
         Caixinha1Hosped.setLayout(new java.awt.BorderLayout());
 
-        painelConteudoHospedes.setBackground(new java.awt.Color(51, 51, 255));
-        painelConteudoHospedes.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 40, 30, 40));
-        painelConteudoHospedes.setOpaque(false);
-        painelConteudoHospedes.setLayout(new java.awt.BorderLayout());
+        jLabel15.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Hóspedes");
+        jLabel15.setAlignmentX(0.5F);
 
-        iconHospedagem.setForeground(new java.awt.Color(50, 50, 50));
-        iconHospedagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconHospedagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Hospedagem.png"))); // NOI18N
-        iconHospedagem.setAlignmentX(0.5F);
-        painelConteudoHospedes.add(iconHospedagem, java.awt.BorderLayout.CENTER);
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Hospedagem.png"))); // NOI18N
+        jLabel16.setAlignmentX(0.5F);
 
-        jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(50, 50, 50));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Hóspedes");
-        jLabel3.setAlignmentX(0.5F);
-        painelConteudoHospedes.add(jLabel3, java.awt.BorderLayout.PAGE_START);
+        jLabel17.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("----");
+        jLabel17.setAlignmentX(0.5F);
 
-        jLabel14.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(50, 50, 50));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("----");
-        jLabel14.setAlignmentX(0.5F);
-        painelConteudoHospedes.add(jLabel14, java.awt.BorderLayout.PAGE_END);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(69, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(42, 42, 42))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(84, 84, 84))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel17))
+        );
 
-        Caixinha1Hosped.add(painelConteudoHospedes, java.awt.BorderLayout.CENTER);
+        Caixinha1Hosped.add(jPanel1, java.awt.BorderLayout.LINE_END);
 
         ConteinerBaixo.add(Caixinha1Hosped);
 
@@ -200,7 +380,7 @@ public class TelaHome extends javax.swing.JFrame {
         jLabel9.setAlignmentX(0.5F);
         painelConteudoReservas.add(jLabel9, java.awt.BorderLayout.PAGE_START);
 
-        jLabel10.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("-----------");
         jLabel10.setAlignmentX(0.5F);
@@ -228,7 +408,7 @@ public class TelaHome extends javax.swing.JFrame {
         jLabel12.setAlignmentX(0.5F);
         painelConteudoFuncionarios.add(jLabel12, java.awt.BorderLayout.PAGE_START);
 
-        jLabel13.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("-----------");
         jLabel13.setAlignmentX(0.5F);
@@ -592,106 +772,81 @@ public class TelaHome extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(painelMenuItemDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1112, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSplitPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 969, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 27, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelMenuItemDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 969, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bnReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnReservasActionPerformed
-        try {
-            // Você precisará criar a classe 'TelaReservas.java' no seu pacote 'telas'.
-            TelaReservas telaReservas = new TelaReservas();
-            telaReservas.setVisible(true);
-            this.dispose(); // Fecha a TelaHome
-        } 
-        catch (NoClassDefFoundError | Exception e) {
-            logger.log(Level.SEVERE, "Erro ao abrir TelaReservas:", e);
-            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Reservas. Verifique se a classe 'TelaReservas' existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+      TelaReservas telaReservas = new TelaReservas();
+        telaReservas.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bnReservasActionPerformed
 
     private void bnQuartosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnQuartosActionPerformed
-       try {
-            // Você precisará criar a classe 'TelaQuartos.java' no seu pacote 'telas'.
-            TelaQuartos telaQuartos = new TelaQuartos();
-            telaQuartos.setVisible(true);
-            this.dispose(); // Fecha a TelaHome
-        } catch (NoClassDefFoundError | Exception e) {
-            logger.log(Level.SEVERE, "Erro ao abrir TelaQuartos:", e);
-            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Quartos. Verifique se a classe 'TelaQuartos' existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+       TelaQuartos telaQuartos = new TelaQuartos();
+        telaQuartos.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bnQuartosActionPerformed
 
     private void bnHospedagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnHospedagemActionPerformed
-         try 
-        {
-            TelaCadastro telaHospedes = new TelaCadastro(); 
-            telaHospedes.setVisible(true);
-            this.dispose(); // Fecha a TelaHome
-        } 
-        catch (NoClassDefFoundError | Exception e) 
-        {
-            logger.log(Level.SEVERE, "Erro ao abrir Tela de Hóspedes:", e);
-            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Hóspedes. Verifique se a classe 'TelaCadastro' (ou 'TelaHospedes') existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+        TelaHospede telaHospedes = new TelaHospede();
+        telaHospedes.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bnHospedagemActionPerformed
 
     private void bnFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnFuncionariosActionPerformed
-        try {
-            // Usar o nome correto da classe para funcionários: TelaCadatroFuncionario
-            TelaCadatroFuncionario telaFuncionario = new TelaCadatroFuncionario();
-            telaFuncionario.setVisible(true);
-            this.dispose(); // Fecha a TelaHome
-        } catch (NoClassDefFoundError | Exception e) {
-            logger.log(Level.SEVERE, "Erro ao abrir TelaCadatroFuncionario:", e);
-            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de Funcionários. Verifique se a classe 'TelaCadatroFuncionario' existe e está compilada.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+             TelaCadatroFuncionario telaFuncionarios = new TelaCadatroFuncionario(); // Certifique-se de que TelaFuncionarios existe
+            telaFuncionarios.setVisible(true);
+            this.dispose();    
     }//GEN-LAST:event_bnFuncionariosActionPerformed
-
-    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {
-
-    // 1. Cria uma nova instância da sua tela de cadastro geral
-    TelaGeralCadatro telaGeralCadastro = new TelaGeralCadatro();
-
-    // 2. Torna a nova tela visível
-    telaGeralCadastro.setVisible(true);
-
-    this.dispose();
-    }                                           
-                                                                                                                                 
+                                                                                                                        
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* Set the Liberation Sans look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* If Liberation Sans (Nimbus) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) { // Changed to Nimbus as Liberation Sans might not be a default L&F
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new TelaHome().setVisible(true));
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                // Ao iniciar diretamente por aqui, use o construtor padrão ou um nome fixo para teste
+                new TelaHome().setVisible(true); 
+            }
+        });
     }
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -710,27 +865,28 @@ public class TelaHome extends javax.swing.JFrame {
     private javax.swing.JButton bnReservas;
     private javax.swing.JButton btnCadastro;
     private javax.swing.JPanel btnCadastroActionPerformed;
-    private javax.swing.JLabel iconHospedagem;
+    private javax.swing.JLabel jLabeUserName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel painelConteudoFuncionarios;
-    private javax.swing.JPanel painelConteudoHospedes;
     private javax.swing.JPanel painelConteudoQuartos;
     private javax.swing.JPanel painelConteudoReservas;
     private javax.swing.JPanel painelMenuItemDashboard;
@@ -742,11 +898,3 @@ public class TelaHome extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 
-class TelaQuartos extends javax.swing.JFrame {
-    public TelaQuartos() {
-        setTitle("Gestão de Quartos");
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    }
-}

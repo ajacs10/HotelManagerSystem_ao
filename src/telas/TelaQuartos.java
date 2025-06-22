@@ -1,0 +1,768 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package telas;
+
+import dao.QuartoDAO;
+import dao.TipoQuartoDAO;
+import model.Quarto;
+import model.TipoQuarto;
+import util.ConexaoMySQL;
+import util.ImageTableCellRenderer;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+/*
+ * @author mcdebug
+ */
+public class TelaQuartos extends javax.swing.JFrame {
+    
+private static final Logger logger = Logger.getLogger(TelaQuartos.class.getName());
+    private QuartoDAO quartoDAO;
+    private TipoQuartoDAO tipoQuartoDAO;
+    private DefaultTableModel tableModelQuartos;
+    private List<TipoQuarto> listaTiposQuartos;
+    private String caminhoImagemSelecionada;
+    private Connection conexao;
+
+    // Declaração dos componentes corretos
+    private JTextField jTextFieldCapacidadeExibicao;
+    private JTextField jTextFieldPrecoExibicao;
+    private JTextField jTextFieldAndar;
+    private JComboBox<TipoQuarto> jComboBoxTipoQuarto;
+    private JTextArea jTextAreaDescricao;
+
+    /**
+     * Creates new form TelaQuartos
+     */
+    public TelaQuartos() {
+        logger.info("Iniciando construtor de TelaQuartos.");
+        initComponents(); // Inicializa os componentes
+        logger.info("initComponents() finalizado. Verificando o estado dos componentes...");
+
+        // Verificação dos componentes
+        logger.info("Estado de jTextFieldCapacidadeExibicao após initComponents(): " + (jTextFieldCapacidadeExibicao == null ? "NULO" : "NÃO NULO"));
+        if (jTextFieldCapacidadeExibicao == null) {
+            logger.severe("ERRO CRÍTICO: jTextFieldCapacidadeExibicao ainda é NULO após initComponents(). Verifique o Design View do NetBeans e o nome da variável.");
+        }
+        logger.info("Estado de jTextFieldPrecoExibicao após initComponents(): " + (jTextFieldPrecoExibicao == null ? "NULO" : "NÃO NULO"));
+        if (jTextFieldPrecoExibicao == null) {
+            logger.severe("ERRO CRÍTICO: jTextFieldPrecoExibicao ainda é NULO após initComponents(). Verifique o Design View do NetBeans e o nome da variável.");
+        }
+        logger.info("Estado de jTextFieldAndar após initComponents(): " + (jTextFieldAndar == null ? "NULO" : "NÃO NULO"));
+        logger.info("Estado de jComboBoxTipoQuarto após initComponents(): " + (jComboBoxTipoQuarto == null ? "NULO" : "NÃO NULO"));
+        logger.info("Estado de jTextAreaDescricao após initComponents(): " + (jTextAreaDescricao == null ? "NULO" : "NÃO NULO"));
+
+        // Configuração inicial dos campos
+        if (jTextFieldCapacidadeExibicao != null) {
+            jTextFieldCapacidadeExibicao.setEditable(false);
+        }
+        if (jTextFieldPrecoExibicao != null) {
+            jTextFieldPrecoExibicao.setEditable(false);
+        }
+
+        logger.info("Construtor de TelaQuartos finalizado com sucesso.");
+
+        // Inicialização dos DAOs e componentes
+        try {
+            conexao = new ConexaoMySQL().getConexao();
+            quartoDAO = new QuartoDAO(conexao);
+            tipoQuartoDAO = new TipoQuartoDAO(conexao);
+            tableModelQuartos = new DefaultTableModel(new Object[]{"ID", "Número", "Andar", "Tipo", "Capacidade", "Preço/Noite", "Status", "Descrição", "Imagem"}, 0);
+            jTableQuartos.setModel(tableModelQuartos);
+            jTableQuartos.getColumnModel().getColumn(8).setPreferredWidth(100);
+            jTableQuartos.setDefaultRenderer(Object.class, new ImageTableCellRenderer(100));
+            carregarTiposQuartosNoComboBox();
+            configurarEventoComboBoxTipoQuarto();
+            carregarQuartosNaTabela();
+            configurarEventosTabela();
+            configurarComboBoxStatus();
+            limparCampos();
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "Erro ao inicializar DAOs ou carregar dados iniciais.", ex);
+            JOptionPane.showMessageDialog(this, "Erro ao carregar dados iniciais: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+// This method is usually auto-generated by IDEs like NetBeans
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
+        jPanelBotoes = new javax.swing.JPanel();
+        btnEditar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableQuartos = new javax.swing.JTable();
+        jPanelDetalhesQuarto = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextFieldNumeroQuarto = new javax.swing.JTextField();
+        jTextFieldCapacidade = new javax.swing.JTextField();
+        jTextFieldPreco = new javax.swing.JTextField();
+        jComboBoxStatus = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jTextFieldImagemPath = new javax.swing.JTextField();
+        btnSelecionarImagem = new javax.swing.JButton();
+        jLabelImagemPreview = new javax.swing.JLabel();
+        jComboBoxstatus = new javax.swing.JComboBox<>();
+        jButtonVolatr = new javax.swing.JButton();
+
+        jScrollPane4.setViewportView(jTextPane1);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestão de Quartos");
+        setResizable(false);
+
+        jPanelBotoes.setLayout(new java.awt.GridLayout(1, 0));
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Fechar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jSplitPane1.setDividerLocation(200);
+
+        jTableQuartos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTableQuartos);
+
+        jSplitPane1.setLeftComponent(jScrollPane3);
+
+        jPanelDetalhesQuarto.setPreferredSize(new java.awt.Dimension(200, 658));
+
+        jLabel1.setText("Número do Quarto:");
+
+        jLabel2.setText("Tipo do Quarto:");
+
+        jLabel3.setText("Capacidade");
+
+        jLabel4.setText("Preço por Noite:");
+
+        jLabel5.setText("Status");
+
+        jLabel6.setText("Descrição");
+
+        jLabel7.setText("Imagem");
+
+        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        btnSelecionarImagem.setText("Selecionar Imagem");
+        btnSelecionarImagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarImagemActionPerformed(evt);
+            }
+        });
+
+        jLabelImagemPreview.setText("Prévia da Imagem");
+
+        jComboBoxstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout jPanelDetalhesQuartoLayout = new javax.swing.GroupLayout(jPanelDetalhesQuarto);
+        jPanelDetalhesQuarto.setLayout(jPanelDetalhesQuartoLayout);
+        jPanelDetalhesQuartoLayout.setHorizontalGroup(
+            jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                .addGroup(jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextFieldImagemPath, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabelImagemPreview)
+                                .addGroup(jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jComboBoxstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetalhesQuartoLayout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextFieldNumeroQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(btnSelecionarImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanelDetalhesQuartoLayout.setVerticalGroup(
+            jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNumeroQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBoxstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextFieldCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGroup(jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanelDetalhesQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel6))
+                    .addGroup(jPanelDetalhesQuartoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldImagemPath, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(btnSelecionarImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(376, 376, 376)
+                .addComponent(jLabelImagemPreview)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jSplitPane1.setRightComponent(jPanelDetalhesQuarto);
+
+        jButtonVolatr.setText("Voltar");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 1077, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonVolatr, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1862, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jButtonVolatr, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        excluirQuarto();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       dispose(); 
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        editarQuarto();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnSelecionarImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarImagemActionPerformed
+        selecionarImagem();
+    }//GEN-LAST:event_btnSelecionarImagemActionPerformed
+
+    private void carregarTiposQuartosNoComboBox() throws SQLException {
+        listaTiposQuartos = tipoQuartoDAO.listarTiposQuartos();
+        DefaultComboBoxModel<TipoQuarto> model = new DefaultComboBoxModel<>();
+        for (TipoQuarto tipo : listaTiposQuartos) {
+            model.addElement(tipo);
+        }
+        jComboBoxTipoQuarto.setModel(model);
+        jComboBoxTipoQuarto.setRenderer(new javax.swing.DefaultListCellRenderer() {
+            @Override
+            public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof TipoQuarto) {
+                    setText(((TipoQuarto) value).getNome());
+                }
+                return this;
+            }
+        });
+    }
+
+    private void configurarEventoComboBoxTipoQuarto() {
+        if (jComboBoxTipoQuarto != null) {
+            jComboBoxTipoQuarto.addActionListener(e -> {
+                TipoQuarto tipoSelecionado = (TipoQuarto) jComboBoxTipoQuarto.getSelectedItem();
+                if (tipoSelecionado != null) {
+                    if (jTextFieldCapacidadeExibicao != null) {
+                        jTextFieldCapacidadeExibicao.setText(String.valueOf(tipoSelecionado.getCapacidade()));
+                    }
+                    if (jTextFieldPrecoExibicao != null) {
+                        jTextFieldPrecoExibicao.setText(tipoSelecionado.getPrecoPorNoite().toPlainString());
+                    }
+                } else {
+                    if (jTextFieldCapacidadeExibicao != null) {
+                        jTextFieldCapacidadeExibicao.setText("");
+                    }
+                    if (jTextFieldPrecoExibicao != null) {
+                        jTextFieldPrecoExibicao.setText("");
+                    }
+                }
+            });
+        } else {
+            logger.severe("ERRO: jComboBoxTipoQuarto é NULO ao tentar configurar seu evento. Verifique initComponents().");
+        }
+    }
+
+    private void carregarQuartosNaTabela() throws SQLException {
+        tableModelQuartos.setRowCount(0);
+        List<Quarto> quartos = quartoDAO.listarQuartos();
+        for (Quarto quarto : quartos) {
+            String tipoNome = (quarto.getTipo() != null) ? quarto.getTipo().getNome() : "N/A";
+            String capacidade = (quarto.getTipo() != null) ? String.valueOf(quarto.getTipo().getCapacidade()) : "N/A";
+            String preco = (quarto.getTipo() != null) ? quarto.getTipo().getPrecoPorNoite().toPlainString() : "N/A";
+            tableModelQuartos.addRow(new Object[]{
+                quarto.getId(),
+                quarto.getNumero(),
+                quarto.getAndar(),
+                tipoNome,
+                capacidade,
+                preco,
+                quarto.getStatus(),
+                quarto.getDescricao(),
+                quarto.getCaminhoImagem()
+            });
+        }
+    }
+
+    private void configurarEventosTabela() {
+        jTableQuartos.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                preencherCamposComQuartoSelecionado();
+            }
+        });
+    }
+
+    private void preencherCamposComQuartoSelecionado() {
+        int selectedRow = jTableQuartos.getSelectedRow();
+        if (selectedRow >= 0) {
+            try {
+                Integer quartoId = (Integer) tableModelQuartos.getValueAt(selectedRow, 0);
+                Quarto quarto = quartoDAO.buscarQuartoPorId(quartoId);
+
+                if (quarto != null) {
+                    jTextFieldNumeroQuarto.setText(String.valueOf(quarto.getNumero()));
+                    jTextFieldAndar.setText(String.valueOf(quarto.getAndar()));
+
+                    if (quarto.getTipo() != null) {
+                        for (int i = 0; i < jComboBoxTipoQuarto.getItemCount(); i++) {
+                            TipoQuarto tipo = (TipoQuarto) jComboBoxTipoQuarto.getItemAt(i);
+                            if (tipo.getId() == quarto.getTipo().getId()) {
+                                jComboBoxTipoQuarto.setSelectedItem(tipo);
+                                break;
+                            }
+                        }
+                    } else {
+                        jComboBoxTipoQuarto.setSelectedIndex(-1);
+                    }
+
+                    if (quarto.getTipo() != null) {
+                        jTextFieldCapacidadeExibicao.setText(String.valueOf(quarto.getTipo().getCapacidade()));
+                        jTextFieldPrecoExibicao.setText(quarto.getTipo().getPrecoPorNoite().toPlainString());
+                    } else {
+                        jTextFieldCapacidadeExibicao.setText("");
+                        jTextFieldPrecoExibicao.setText("");
+                    }
+
+                    jComboBoxStatus.setSelectedItem(quarto.getStatus());
+                    jTextAreaDescricao.setText(quarto.getDescricao());
+                    jTextFieldImagemPath.setText(quarto.getCaminhoImagem());
+                    caminhoImagemSelecionada = quarto.getCaminhoImagem();
+                    exibirPreviaImagem(quarto.getCaminhoImagem());
+                } else {
+                    limparCampos();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao carregar detalhes do quarto: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                logger.log(Level.SEVERE, "Erro ao carregar detalhes do quarto selecionado", e);
+                limparCampos();
+            }
+        } else {
+            limparCampos();
+        }
+    }
+
+    private void limparCampos() {
+        jTextFieldNumeroQuarto.setText("");
+        jTextFieldAndar.setText("");
+        jComboBoxTipoQuarto.setSelectedIndex(-1);
+        jTextFieldCapacidadeExibicao.setText("");
+        jTextFieldPrecoExibicao.setText("");
+        if (jComboBoxStatus.getModel().getSize() > 0) {
+            jComboBoxStatus.setSelectedIndex(0);
+        } else {
+            if (jComboBoxStatus.getItemCount() == 0) {
+                jComboBoxStatus.addItem("Disponível");
+            }
+            jComboBoxStatus.setSelectedIndex(0);
+        }
+        jTextAreaDescricao.setText("");
+        jTextFieldImagemPath.setText("");
+        caminhoImagemSelecionada = null;
+        jLabelImagemPreview.setIcon(null);
+        jLabelImagemPreview.setText("Prévia da Imagem");
+        jTableQuartos.clearSelection();
+    }
+
+    private void configurarComboBoxStatus() {
+        String[] statusOptions = {"Disponível", "Ocupado", "Manutenção", "Limpeza"};
+        jComboBoxStatus.setModel(new DefaultComboBoxModel<>(statusOptions));
+    }
+
+  private Quarto obterDadosDoFormulario() {
+    try {
+        String numero = jTextFieldNumeroQuarto.getText().trim(); // Alterado de Integer para String, já que numero_quarto é VARCHAR
+        Integer andar = Integer.parseInt(jTextFieldAndar.getText().trim());
+        TipoQuarto tipo = (TipoQuarto) jComboBoxTipoQuarto.getSelectedItem();
+        String status = (String) jComboBoxStatus.getSelectedItem();
+        String descricao = jTextAreaDescricao.getText().trim();
+
+        if (tipo == null) {
+            JOptionPane.showMessageDialog(this, "Selecione um Tipo de Quarto válido.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+        if (status == null || status.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Selecione um Status válido.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+        if (descricao.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "A descrição não pode estar vazia.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+
+        Integer id = null;
+        int selectedRow = jTableQuartos.getSelectedRow();
+        if (selectedRow >= 0) {
+            id = (Integer) tableModelQuartos.getValueAt(selectedRow, 0);
+        }
+
+        return new Quarto(id, numero, tipo, andar, status, descricao, caminhoImagemSelecionada);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Andar deve ser um número inteiro válido.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+        return null;
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao obter dados do formulário: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        logger.log(Level.SEVERE, "Erro ao obter dados do formulário", e);
+        return null;
+    }
+}
+
+    private void adicionarQuarto() {
+        Quarto novoQuarto = obterDadosDoFormulario();
+        if (novoQuarto != null) {
+            try {
+                novoQuarto.setId(null);
+                if (caminhoImagemSelecionada != null && !caminhoImagemSelecionada.isEmpty()) {
+                    File imagemOriginal = new File(caminhoImagemSelecionada);
+                    if (imagemOriginal.exists()) {
+                        String nomeArquivo = imagemOriginal.getName();
+                        Path destinoDir = Paths.get("imagens_quartos");
+                        if (!Files.exists(destinoDir)) {
+                            Files.createDirectories(destinoDir);
+                        }
+                        Path destinoImagem = destinoDir.resolve(nomeArquivo);
+                        Files.copy(imagemOriginal.toPath(), destinoImagem, StandardCopyOption.REPLACE_EXISTING);
+                        novoQuarto.setCaminhoImagem(destinoImagem.toString());
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Caminho da imagem inválido.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                        novoQuarto.setCaminhoImagem(null);
+                    }
+                }
+                quartoDAO.adicionarQuarto(novoQuarto);
+                JOptionPane.showMessageDialog(this, "Quarto adicionado com sucesso!");
+                carregarQuartosNaTabela();
+                limparCampos();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Erro ao adicionar quarto: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                logger.log(Level.SEVERE, "Erro ao adicionar quarto", e);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Erro ao copiar imagem: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                logger.log(Level.SEVERE, "Erro ao copiar imagem do quarto", e);
+            }
+        }
+    }
+
+    private void editarQuarto() {
+        int selectedRow = jTableQuartos.getSelectedRow();
+        if (selectedRow >= 0) {
+            Quarto quartoAtualizado = obterDadosDoFormulario();
+            if (quartoAtualizado != null) {
+                try {
+                    Integer idQuarto = (Integer) tableModelQuartos.getValueAt(selectedRow, 0);
+                    quartoAtualizado.setId(idQuarto);
+
+                    if (caminhoImagemSelecionada != null && !caminhoImagemSelecionada.isEmpty()) {
+                        File imagemOriginal = new File(caminhoImagemSelecionada);
+                        if (imagemOriginal.exists()) {
+                            String nomeArquivo = imagemOriginal.getName();
+                            Path destinoDir = Paths.get("imagens_quartos");
+                            if (!Files.exists(destinoDir)) {
+                                Files.createDirectories(destinoDir);
+                            }
+                            Path destinoImagem = destinoDir.resolve(nomeArquivo);
+                            Files.copy(imagemOriginal.toPath(), destinoImagem, StandardCopyOption.REPLACE_EXISTING);
+                            quartoAtualizado.setCaminhoImagem(destinoImagem.toString());
+                        } else {
+                            quartoAtualizado.setCaminhoImagem(null);
+                        }
+                    } else {
+                        Quarto originalQuarto = quartoDAO.buscarQuartoPorId(idQuarto);
+                        if (originalQuarto != null) {
+                            quartoAtualizado.setCaminhoImagem(originalQuarto.getCaminhoImagem());
+                        }
+                    }
+
+                    quartoDAO.atualizarQuarto(quartoAtualizado);
+                    JOptionPane.showMessageDialog(this, "Quarto atualizado com sucesso!");
+                    carregarQuartosNaTabela();
+                    limparCampos();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao atualizar quarto: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    logger.log(Level.SEVERE, "Erro ao atualizar quarto", e);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao copiar imagem: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    logger.log(Level.SEVERE, "Erro ao copiar imagem do quarto ao atualizar", e);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um quarto para editar.", "Nenhum Quarto Selecionado", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void excluirQuarto() {
+        int selectedRow = jTableQuartos.getSelectedRow();
+        if (selectedRow >= 0) {
+            Integer idQuarto = (Integer) tableModelQuartos.getValueAt(selectedRow, 0);
+            int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir este quarto?", "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    String caminhoImagem = (String) tableModelQuartos.getValueAt(selectedRow, 8);
+                    if (caminhoImagem != null && !caminhoImagem.isEmpty()) {
+                        File imagemParaExcluir = new File(caminhoImagem);
+                        if (imagemParaExcluir.exists()) {
+                            Files.deleteIfExists(imagemParaExcluir.toPath());
+                            logger.info("Imagem do quarto excluída: " + caminhoImagem);
+                        }
+                    }
+                    quartoDAO.excluirQuarto(idQuarto);
+                    JOptionPane.showMessageDialog(this, "Quarto excluído com sucesso!");
+                    carregarQuartosNaTabela();
+                    limparCampos();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao excluir quarto: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    logger.log(Level.SEVERE, "Erro ao excluir quarto", e);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao excluir arquivo de imagem: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    logger.log(Level.SEVERE, "Erro ao excluir imagem do quarto", e);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um quarto para excluir.", "Nenhum Quarto Selecionado", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void selecionarImagem() {
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos de Imagem", "jpg", "jpeg", "png", "gif", "bmp");
+        fileChooser.setFileFilter(filter);
+
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            caminhoImagemSelecionada = selectedFile.getAbsolutePath();
+            jTextFieldImagemPath.setText(caminhoImagemSelecionada);
+            exibirPreviaImagem(caminhoImagemSelecionada);
+        }
+    }
+
+    private void exibirPreviaImagem(String imagePath) {
+        if (imagePath != null && !imagePath.isEmpty()) {
+            try {
+                ImageIcon originalIcon = new ImageIcon(imagePath);
+                Image originalImage = originalIcon.getImage();
+                int labelWidth = jLabelImagemPreview.getWidth();
+                int labelHeight = jLabelImagemPreview.getHeight();
+
+                if (labelWidth <= 0 || labelHeight <= 0) {
+                    labelWidth = 200;
+                    labelHeight = 150;
+                }
+
+                Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+                jLabelImagemPreview.setIcon(scaledIcon);
+                jLabelImagemPreview.setText("");
+            } catch (Exception e) {
+                logger.log(Level.WARNING, "Erro ao carregar ou exibir prévia da imagem: " + imagePath, e);
+                jLabelImagemPreview.setIcon(null);
+                jLabelImagemPreview.setText("Erro ao carregar imagem");
+            }
+        } else {
+            jLabelImagemPreview.setIcon(null);
+            jLabelImagemPreview.setText("Prévia da Imagem");
+        }
+    }
+
+    public static void main(String args[]) {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaQuartos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        java.awt.EventQueue.invokeLater(() -> new TelaQuartos().setVisible(true));
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    protected javax.swing.JButton btnEditar;
+    protected javax.swing.JButton btnExcluir;
+    protected javax.swing.JButton btnSelecionarImagem;
+    protected javax.swing.JButton jButton3;
+    protected javax.swing.JButton jButtonVolatr;
+    protected javax.swing.JComboBox<String> jComboBoxStatus;
+    protected javax.swing.JComboBox<String> jComboBoxstatus;
+    protected javax.swing.JLabel jLabel1;
+    protected javax.swing.JLabel jLabel2;
+    protected javax.swing.JLabel jLabel3;
+    protected javax.swing.JLabel jLabel4;
+    protected javax.swing.JLabel jLabel5;
+    protected javax.swing.JLabel jLabel6;
+    protected javax.swing.JLabel jLabel7;
+    protected javax.swing.JLabel jLabelImagemPreview;
+    protected javax.swing.JPanel jPanelBotoes;
+    protected javax.swing.JPanel jPanelDetalhesQuarto;
+    protected javax.swing.JScrollPane jScrollPane1;
+    protected javax.swing.JScrollPane jScrollPane3;
+    protected javax.swing.JScrollPane jScrollPane4;
+    protected javax.swing.JSplitPane jSplitPane1;
+    protected javax.swing.JTable jTableQuartos;
+    protected javax.swing.JTextArea jTextArea1;
+    protected javax.swing.JTextField jTextFieldCapacidade;
+    protected javax.swing.JTextField jTextFieldImagemPath;
+    protected javax.swing.JTextField jTextFieldNumeroQuarto;
+    protected javax.swing.JTextField jTextFieldPreco;
+    protected javax.swing.JTextPane jTextPane1;
+    // End of variables declaration//GEN-END:variables
+}

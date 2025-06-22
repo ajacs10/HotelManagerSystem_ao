@@ -6,86 +6,68 @@ package telas;
  * @author mcdebug
  */
 
+import util.ConexaoMySQL;
 import javax.swing.JOptionPane;
-import java.util.regex.Matcher; 
-import java.util.regex.Pattern; 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.logging.Level;
-import java.util.logging.Logger; 
-
-
+import java.util.logging.Logger;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 
 public class TelaLogin extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaLogin.class.getName());
+    private static final Logger logger = Logger.getLogger(TelaLogin.class.getName());
 
-    public TelaLogin() 
-    {
+    public TelaLogin() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
-private boolean validateUsername(String username) 
-{
-    Pattern p = Pattern.compile("^[a-zA-Z]+$");
-    Matcher m = p.matcher(username);
-    if (!m.matches()) 
-    {
-        showMessage("O usuário deve conter apenas letras e não pode ter caracteres especiais como # ou @.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
-        return false;
+    private boolean validateUsername(String username) {
+        Pattern p = Pattern.compile("^[a-zA-Z]+$");
+        Matcher m = p.matcher(username);
+        if (!m.matches()) {
+            showMessage("O usuário deve conter apenas letras.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (username.length() > 16) {
+            showMessage("O usuário não pode ter mais de 10 caracteres.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
-    if (username.length() > 10) 
-    {
-        showMessage("O usuário não pode ter mais de 10 caracteres.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
-        return false;
-    }
-    return true;
-}
-
-private boolean validatePassword(String password) 
-{
-    if (password.length() < 8) 
-    {
-        showMessage("A senha deve ter no mínimo 8 caracteres.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
-        return false;
-    }
-
-    if (!password.matches(".*[A-Z].*")) 
-    {
-        showMessage("A senha deve conter pelo menos uma letra maiúscula.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
-        return false;
-    }
-
-    if (!password.matches(".*[a-z].*")) 
-    {
-        showMessage("A senha deve conter pelo menos uma letra minúscula.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
-        return false;
+    private boolean validatePassword(String password) {
+        if (password.length() < 8) {
+            showMessage("A senha deve ter no mínimo 8 caracteres.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            showMessage("A senha deve conter pelo menos uma letra maiúscula.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (!password.matches(".*[a-z].*")) {
+            showMessage("A senha deve conter pelo menos uma letra minúscula.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (!password.matches(".*\\d.*")) {
+            showMessage("A senha deve conter pelo menos um número.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (!password.matches(".*[!@#$%^&*()\\-_+=<>,.?/].*")) {
+            showMessage("A senha deve conter pelo menos um caractere especial.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
-    if (!password.matches(".*\\d.*")) 
-    {
-        showMessage("A senha deve conter pelo menos um número.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
-        return false;
+    private void showMessage(String message, String title, int messageType) {
+        JOptionPane.showMessageDialog(this, message, title, messageType);
     }
-
-    if (!password.matches(".*[!@#$%^&*()\\-_+=<>,.?/].*"))
-    {
-        showMessage("A senha deve conter pelo menos um caractere especial (ex: !@#$%^&*()-_+=<>).", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
-        return false;
-    }
-
-    return true;
-}
-
-
-private void showMessage(String message, String title, int messageType) 
-{
-    JOptionPane.showMessageDialog(this, message, title, messageType);
-}
-   
-    
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -197,57 +179,95 @@ private void showMessage(String message, String title, int messageType)
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String username = jTextField1.getText();
-        String password = new String(jPasswordField1.getPassword());
+   
+    String username = jTextField1.getText().trim();
+    String password = new String(jPasswordField1.getPassword());
 
-        if (username.isEmpty() || password.isEmpty()) 
-        {
-            showMessage("Por favor, preencha os campos de Usuário e Senha para poder entrar.",
-                        "Campos Vazios", JOptionPane.WARNING_MESSAGE);
+    if (!validateUsername(username)) {
+        return;
+    }
+    if (!validatePassword(password)) {
+        return;
+    }
+
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    String nomeCompletoUsuario = null;
+    String papelUsuario = null;
+
+    try {
+        conn = ConexaoMySQL.getConexao();
+        if (conn == null) {
+            showMessage("Não foi possível conectar ao banco de dados.", "Erro de Conexão", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Conexão com o banco de dados é nula.");
             return;
         }
 
-        if (!validateUsername(username)) 
-        {
-           
+        String sqlCheckUser = "SELECT u.senha_hash, u.papel, f.nome_completo " +
+                             "FROM usuarios u " +
+                             "LEFT JOIN funcionarios f ON u.id_funcionario = f.id_funcionario " +
+                             "WHERE u.nome_usuario = ?";
+
+        logger.log(Level.INFO, "Executando consulta SQL: {0} com username: {1}", new Object[]{sqlCheckUser, username});
+
+        pstmt = conn.prepareStatement(sqlCheckUser);
+        pstmt.setString(1, username);
+        rs = pstmt.executeQuery();
+
+        if (!rs.next()) {
+            showMessage("Nome de usuário não encontrado.", "Erro de Login", JOptionPane.WARNING_MESSAGE);
+            logger.log(Level.WARNING, "Nome de usuário não encontrado no banco de dados: {0}", username);
             return;
         }
 
-        if (!validatePassword(password)) 
-        {
-            return;
-        }
+        String storedHash = rs.getString("senha_hash");
+        papelUsuario = rs.getString("papel");
+        nomeCompletoUsuario = rs.getString("nome_completo");
 
-        String fixedUsername = "asobrinh";
-        String fixedPassword = "Beijodela@120702";
+        logger.log(Level.INFO, "Dados obtidos do BD: senha_hash={0}, papel={1}, nome_completo={2}", 
+                  new Object[]{storedHash, papelUsuario, nomeCompletoUsuario});
 
-        if (username.equals(fixedUsername) && password.equals(fixedPassword)) {
-            // Login bem-sucedido com credenciais fixas
-            showMessage("Login bem-sucedido!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        if (password.equals(storedHash)) {
+            JOptionPane.showMessageDialog(this, "Login efetuado com sucesso!");
+            
+            if (nomeCompletoUsuario == null || nomeCompletoUsuario.isEmpty()) {
+                nomeCompletoUsuario = username;
+                logger.log(Level.WARNING, "Nome completo do funcionário é nulo/vazio. Usando o username: {0}", username);
+            }
+            papelUsuario = papelUsuario != null ? papelUsuario : ""; // Ensure non-null
 
-            TelaHome telaHome = new TelaHome();
+            TelaHome telaHome = new TelaHome(nomeCompletoUsuario, papelUsuario);
             telaHome.setVisible(true);
-
             this.dispose();
-
-        } else 
-        {
-            // Credenciais inválidas
-            showMessage("Usuário ou Senha incorretos. Tente novamente.",
-                        "Erro de Login", JOptionPane.ERROR_MESSAGE);
+        } else {
+            showMessage("Senha incorreta para o usuário " + username + ".", "Erro de Login", JOptionPane.WARNING_MESSAGE);
+            logger.log(Level.WARNING, "Tentativa de login falhou para o usuário {0} (senha incorreta).", username);
         }
+
+    } catch (SQLException e) {
+        logger.log(Level.SEVERE, "Erro durante a autenticação: " + e.getMessage(), e);
+        showMessage("Erro de banco de dados: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Erro ao fechar recursos do BD: " + e.getMessage(), e);
+        }
+    }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        
+        jPasswordField1.requestFocusInWindow();
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja sair?", "Confirmar Saída", JOptionPane.YES_NO_OPTION);
-
-        
-        if (confirm == JOptionPane.YES_OPTION) 
-        {
+       int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja sair?", "Confirmar Saída", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -255,12 +275,10 @@ private void showMessage(String message, String title, int messageType)
     /**
      * @param args the command line arguments
      */
-       public static void main(String args[]) 
-       {
+       public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) 
-                {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
